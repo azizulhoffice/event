@@ -24,4 +24,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::resource('roles', 'RoleController');
         Route::resource('users', 'UserController');
         Route::resource('participants', 'ParticipantController');
+        Route::resource('events', 'EventController');
 });

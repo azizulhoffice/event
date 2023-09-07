@@ -73,6 +73,35 @@
             </li>
             <!--participant end-->
 
+             <!--Event start-->
+             <li
+                class="nav-item has-treeview {{ isActive(['admin/events*']) }}">
+                <a href="#"
+                    class="nav-link {{ isActive(['admin/events*']) }}">
+                    <i class="nav-icon far fa-calendar"></i>
+                    <p>
+                        Event
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('admin/events/create') }}"
+                            class="nav-link {{ isActive('admin/events/create') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Event</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Event</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Event end-->
+
 
         </ul>
     </nav>
