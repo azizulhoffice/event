@@ -32,18 +32,33 @@
                     </p>
                 </a>
             </li>
-            {{-- @endcan
-            @can('users') --}}
-            <li class="nav-item {{ isActive(['admin/users*']) }}">
-                <a href="{{ route('users.index') }}" class="nav-link {{ isActive('admin/users*') }}">
+            {{-- @endcan --}}
+             <!--users start-->
+            <li class="nav-item has-treeview {{ isActive(['admin/users*']) }}">
+                <a href="#" class="nav-link {{ isActive(['admin/users*']) }}">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Users
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('admin/users/create') }}"
+                            class="nav-link {{ isActive('admin/users/create') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add User</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/users') }}" class="nav-link {{ isActive('admin/users') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Users</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            {{-- @endcan --}}
-
+            <!--users end-->
             <!--participant start-->
             <li
                 class="nav-item has-treeview {{ isActive(['admin/participants*']) }}">

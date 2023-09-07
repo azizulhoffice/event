@@ -6,9 +6,6 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="{{url('/admin/dashboard')}}" class="nav-link">Dashboard</a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{url('/')}}" class="nav-link">View Website</a>
-    </li>
 
 </ul>
 
