@@ -24,10 +24,14 @@
                             <span class="badge badge-info">{{ ucfirst($judge->username) }}</span>
                         @endforeach
                     </td>
-                    <td>
+                    <td class="btn-group">
                         <!-- Add action buttons here, e.g., edit and delete -->
                         <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <form action="{{ route('events.destroy',$event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

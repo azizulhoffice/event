@@ -88,7 +88,18 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|unique:events,name,'.$id,
+            'description' => 'nullable|string',
+            'judges' => 'required|array',
+        ]);
+        $event = Event::find($id);
+         $event->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+        $event->users()->sync($request->judges);
+        return redirect()->route('events.index');
     }
 
     /**
@@ -99,6 +110,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Event::where('id',$id)->delete();
+        return redirect()->back();
     }
 }
