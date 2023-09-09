@@ -36,7 +36,7 @@
              <!--users start-->
             <li class="nav-item has-treeview {{ isActive(['admin/users*']) }}">
                 <a href="#" class="nav-link {{ isActive(['admin/users*']) }}">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="nav-icon fas fa-user"></i>
                     <p>
                         Users
                         <i class="right fas fa-angle-left"></i>

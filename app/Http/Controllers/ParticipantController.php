@@ -17,7 +17,7 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $participants = Participant::paginate(20);
+        $participants = Participant::latest()->paginate(20);
 
         $startNumber = ($participants->currentPage() - 1) * $participants->perPage() + 1;
         return view('admin.participants.index',compact('participants','startNumber'));

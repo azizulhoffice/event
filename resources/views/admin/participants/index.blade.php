@@ -31,7 +31,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>SN</th>
+                                <th>Sl NO</th>
                                 <th>Name</th>
                                 <th>Event</th>
                                 <th>Class</th>
