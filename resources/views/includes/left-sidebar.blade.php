@@ -117,7 +117,25 @@
             </li>
             <!--Event end-->
 
-
+<!--Event start-->
+<li class="nav-item has-treeview {{ isActive(['admin/score*']) }}">
+    <a href="#" class="nav-link {{ isActive(['admin/score*']) }}">
+        <i class="nav-icon fas fa-columns"></i>
+        <p>
+            Score
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('score.create') }}" class="nav-link {{ isActive('admin/score/create') }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Score Add</p>
+            </a>
+        </li>
+    </ul>
+</li>
+<!--Event end-->
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

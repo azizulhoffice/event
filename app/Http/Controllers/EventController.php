@@ -113,4 +113,7 @@ class EventController extends Controller
         $event = Event::where('id',$id)->delete();
         return redirect()->back();
     }
+    public function scoreCreate(){
+        return view('admin.events.score-create');
+    }
 }
