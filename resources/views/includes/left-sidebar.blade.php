@@ -75,7 +75,7 @@
                         <a href="{{ url('admin/participants/create') }}"
                             class="nav-link {{ isActive('admin/participants/create') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add Participant</p>
+                            <p>Import Participant</p>
                         </a>
                     </li>
                     <li class="nav-item">
