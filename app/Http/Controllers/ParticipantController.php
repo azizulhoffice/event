@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ParticipantsImport;
+use App\Models\Event;
 use App\Models\Participant;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipantController extends Controller
 {
@@ -14,7 +17,10 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        //
+        $participants = Participant::paginate(20);
+
+        $startNumber = ($participants->currentPage() - 1) * $participants->perPage() + 1;
+        return view('admin.participants.index',compact('participants','startNumber'));
     }
 
     /**
@@ -24,7 +30,8 @@ class ParticipantController extends Controller
      */
     public function create()
     {
-        //
+        $events = Event::all();
+        return view('admin.participants.import', compact('events'));
     }
 
     /**
@@ -35,7 +42,15 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $request->validate([
+                'excel_file' => 'required|mimes:xls,xlsx,xlsm,xlsb,ods,csv'
+            ]);
+
+            $file = $request->file('excel_file');
+            session()->forget('event_id');
+            session(['event_id' => $request->event_id]);
+            Excel::import(new ParticipantsImport, $file);
+            return redirect()->route('participants.index')->with('success', 'Participants Imported successfully.');
     }
 
     /**
@@ -81,5 +96,10 @@ class ParticipantController extends Controller
     public function destroy(Participant $participant)
     {
         //
+    }
+    public function importview()
+    {
+        $participants = Participant::all();
+        return view('admin.participants.import',compact('participants'));
     }
 }
