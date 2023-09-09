@@ -39,7 +39,18 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|unique:events,name',
+            'description' => 'nullable|string',
+            'judges' => 'required|array',
+        ]);
+
+        $event = Event::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+        $event->users()->sync($request->judges);
+        return redirect()->route('events.index');
     }
 
     /**
@@ -61,7 +72,11 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::find($id);
+        $users = User::where('role','judge')->get();
+        $event->load('users');
+
+        return view('admin.events.edit',compact('event','users'));
     }
 
     /**
