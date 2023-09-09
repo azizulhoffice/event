@@ -2,8 +2,9 @@
 @section('content')
 <div class="p-3">
     <h2>Edit {{ $event->name }}</h2>
-    <form method="POST" action="{{ url('/admin/events/store') }}">
+    <form method="POST" action="{{ route('events.update',$event->id) }}">
         @csrf
+        @method('PUT')
         <div class="form-group">
             <label for="eventName">Event Name:</label>
             <input type="text" class="form-control" value="{{ $event->name }}" id="name" name="name" placeholder="Enter event name" required>
