@@ -26,7 +26,7 @@
                     </td>
                     <td>
                         <!-- Add action buttons here, e.g., edit and delete -->
-                        <a href="#" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>
                         <a href="#" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

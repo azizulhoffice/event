@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}">
+                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events*') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Event</p>
                         </a>
