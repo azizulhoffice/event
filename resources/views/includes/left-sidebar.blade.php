@@ -1,7 +1,6 @@
 <!-- Brand Logo -->
 <a href="index3.html" class="brand-link">
-    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo"
-        class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">Event</span>
 </a>
 
@@ -19,6 +18,10 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
+        @php
+        $user = auth()->user();
+        @endphp
+        @if($user->role == "admin")
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
@@ -33,7 +36,7 @@
                 </a>
             </li>
             {{-- @endcan --}}
-             <!--users start-->
+            <!--users start-->
             <li class="nav-item has-treeview {{ isActive(['admin/users*']) }}">
                 <a href="#" class="nav-link {{ isActive(['admin/users*']) }}">
                     <i class="nav-icon fas fa-user"></i>
@@ -44,8 +47,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('admin/users/create') }}"
-                            class="nav-link {{ isActive('admin/users/create') }}">
+                        <a href="{{ url('admin/users/create') }}" class="nav-link {{ isActive('admin/users/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add User</p>
                         </a>
@@ -60,10 +62,8 @@
             </li>
             <!--users end-->
             <!--participant start-->
-            <li
-                class="nav-item has-treeview {{ isActive(['admin/participants*']) }}">
-                <a href="#"
-                    class="nav-link {{ isActive(['admin/participants*']) }}">
+            <li class="nav-item has-treeview {{ isActive(['admin/participants*']) }}">
+                <a href="#" class="nav-link {{ isActive(['admin/participants*']) }}">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Participant
@@ -72,8 +72,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('admin/participants/create') }}"
-                            class="nav-link {{ isActive('admin/participants/create') }}">
+                        <a href="{{ url('admin/participants/create') }}" class="nav-link {{ isActive('admin/participants/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Import Participant</p>
                         </a>
@@ -88,11 +87,9 @@
             </li>
             <!--participant end-->
 
-             <!--Event start-->
-             <li
-                class="nav-item has-treeview {{ isActive(['admin/events*']) }}">
-                <a href="#"
-                    class="nav-link {{ isActive(['admin/events*']) }}">
+            <!--Event start-->
+            <li class="nav-item has-treeview {{ isActive(['admin/events*']) }}">
+                <a href="#" class="nav-link {{ isActive(['admin/events*']) }}">
                     <i class="nav-icon far fa-calendar"></i>
                     <p>
                         Event
@@ -101,8 +98,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ url('admin/events/create') }}"
-                            class="nav-link {{ isActive('admin/events/create') }}">
+                        <a href="{{ url('admin/events/create') }}" class="nav-link {{ isActive('admin/events/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Event</p>
                         </a>
@@ -117,26 +113,34 @@
             </li>
             <!--Event end-->
 
-<!--Event start-->
-<li class="nav-item has-treeview {{ isActive(['admin/score*']) }}">
-    <a href="#" class="nav-link {{ isActive(['admin/score*']) }}">
-        <i class="nav-icon fas fa-columns"></i>
-        <p>
-            Score
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
+            <!--Event start-->
+            <li class="nav-item has-treeview {{ isActive(['admin/score*']) }}">
+                <a href="#" class="nav-link {{ isActive(['admin/score*']) }}">
+                    <i class="nav-icon fas fa-columns"></i>
+                    <p>
+                        Score
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('score.create') }}" class="nav-link {{ isActive('admin/score/create') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Score Add</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--Event end-->
+        </ul>
+        @elseif($user->role == 'judge')
         <li class="nav-item">
-            <a href="{{ route('score.create') }}" class="nav-link {{ isActive('admin/score/create') }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Score Add</p>
+            <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
+                <i class="nav-icon far fa-calendar"></i>
+                <p>Events</p>
             </a>
         </li>
-    </ul>
-</li>
-<!--Event end-->
-        </ul>
+        @endif
     </nav>
     <!-- /.sidebar-menu -->
 </div>
