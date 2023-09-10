@@ -22,6 +22,6 @@ class JudgeController extends Controller
     {
         $event = Event::find($id);
         $event->load('participants');
-        return view('judge.score-create', compact('event'));
+        return view('judge.scores.create', compact('event'));
     }
 }

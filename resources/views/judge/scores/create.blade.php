@@ -1,23 +1,26 @@
 @extends('layouts.main')
 @section('styles')
 <style>
-.score-tab{
-    width: 33.33% !important;
-    text-align: center;
-    font-weight: bold;
-    color: white !important;
-    text-transform: uppercase;
-}
-.absent.active{
-    background-color: red !important;
-}
-.unmarked.active{
-background-color: yellow !important;
-color: black !important;
-}
-.marked.active{
-background-color: green !important;
-}
+    .score-tab {
+        width: 33.33% !important;
+        text-align: center;
+        font-weight: bold;
+        color: white !important;
+        text-transform: uppercase;
+    }
+
+    .absent.active {
+        background-color: red !important;
+    }
+
+    .unmarked.active {
+        background-color: yellow !important;
+        color: black !important;
+    }
+
+    .marked.active {
+        background-color: green !important;
+    }
 </style>
 
 @endsection
@@ -72,17 +75,17 @@ background-color: green !important;
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (\App\Models\Participant::where('event_id',2)->get() as $participant)
+                                        @foreach ($event->participants as $participant)
                                         <tr>
 
                                             <td>{{ $participant->serial_no }}</td>
                                             <td>{{ $participant->name_bn??$participant->name_en }}</td>
                                             <td>
-                                              <button class="btn btn-sm btn-danger">A</button>
+                                                <button class="btn btn-sm btn-danger">A</button>
                                             </td>
                                             <td>
-                                                    <input type="text" name="score-{{ $participant->id}}"
-                                                        class="form-control">
+                                                <input type="text" name="score-{{ $participant->id}}"
+                                                    class="form-control">
                                             </td>
                                             <td>
                                                 <button class="btn btn-sm btn-success">

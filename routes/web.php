@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','check-admin']], function () {
@@ -26,16 +22,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check-admin']], func
         Route::resource('users', 'UserController');
         Route::resource('participants', 'ParticipantController');
         Route::resource('events', 'EventController');
-        // Route::any('score/create', [App\Http\Controllers\EventController::class,'scoreCreate'])->name('score.create');
-        Route::resource('scores', 'ScoreController');
 });
 
 Route::group(['prefix' => 'judge', 'middleware' => ['auth','check-judge'], 'as' => 'judge.'], function () {
     Route::get('/','JudgeController@index');
     Route::get('event/{id}/score','JudgeController@eventScore')->name('event.score');
-    // Route::resource('roles', 'RoleController');
-    // Route::resource('users', 'UserController');
-    // Route::resource('participants', 'ParticipantController');
-    // Route::resource('events', 'EventController');
-    // Route::any('score/create', [App\Http\Controllers\EventController::class,'scoreCreate'])->name('score.create');
+    Route::resource('scores', 'ScoreController');
 });
