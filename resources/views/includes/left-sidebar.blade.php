@@ -128,7 +128,7 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{ route('score.create') }}" class="nav-link {{ isActive('admin/score/create') }}">
+            <a href="{{ url('admin/scores/create') }}" class="nav-link {{ isActive('admin/score/create') }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Score Add</p>
             </a>

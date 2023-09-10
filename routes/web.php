@@ -26,5 +26,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::resource('users', 'UserController');
         Route::resource('participants', 'ParticipantController');
         Route::resource('events', 'EventController');
-        Route::any('score/create', [App\Http\Controllers\EventController::class,'scoreCreate'])->name('score.create');
+        // Route::any('score/create', [App\Http\Controllers\EventController::class,'scoreCreate'])->name('score.create');
+        Route::resource('scores', 'ScoreController');
 });
