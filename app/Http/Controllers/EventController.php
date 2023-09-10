@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Participant;
+use App\Models\Score;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -116,5 +118,48 @@ class EventController extends Controller
         $event->update();
 
         return redirect()->back();
+    }
+
+    public function resultPublish($id)
+    {
+
+        $particapant_score = Score::where('event_id', $id)
+            ->selectRaw('participant_id, sum(score) as total_score,avg(score) as avg_score')
+            ->groupBy('participant_id')
+            ->orderBy('total_score', 'desc')
+            ->get();
+        $data = [];
+        $i = 0;
+        $r = 1;
+        foreach ($particapant_score as $score) {
+            if ($i == 0) {
+                $rank = 1;
+            } else {
+                if ($score->total_score < $data[$i - 1]['total_earn_score']) {
+                    $rank = ++$r;
+                } else {
+                    $rank = $r;
+                }
+            }
+            $data[] = [
+                'participant_id' => $score->participant_id,
+                'total_earn_score' => $score->total_score,
+                'avg_score' => $score->avg_score,
+                'rank'  => $rank,
+            ];
+            $i++;
+        }
+        dd($data);
+        return view('admin.events.result', compact('participants'));
+    }
+    public function result($id)
+    {
+
+        $participants = Participant::where('event_id', $id)
+            ->orderBy('total_earn_score', 'desc')
+            ->orderBy('rank', 'asc')
+            ->get();
+        dd($participants->toArray());
+        return view('admin.events.result', compact('participants'));
     }
 }

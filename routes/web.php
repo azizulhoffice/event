@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect(route('login'));
 });
 
 Auth::routes();
@@ -28,6 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check-admin']], func
         Route::resource('participants', 'ParticipantController');
         Route::resource('events', 'EventController');
         Route::post('/events/{id}/visibility/toggle', 'EventController@toggleVisibility')->name('events.toggle-visibility');
+        Route::any('events/{id}/result', 'EventController@result')->name('events.result');
 });
 
 Route::group(['prefix' => 'judge', 'middleware' => ['auth','check-judge'], 'as' => 'judge.'], function () {

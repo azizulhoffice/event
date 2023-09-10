@@ -55,7 +55,6 @@
                                         <button class="btn btn-warning">Hide</button>
                                         @else
                                         <button class="btn btn-success">Publish</button>
-
                                         @endif
                                     </form>
                                     <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>
@@ -64,6 +63,7 @@
                                         @csrf
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
+                                    <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Result</a>
                                 </td>
                             </tr>
                             @endforeach

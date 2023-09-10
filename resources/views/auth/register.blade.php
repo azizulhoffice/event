@@ -21,11 +21,11 @@
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
-        <a href="../../index2.html"><b>Marsa</b>Technologies</a>
+        <a href="{{ route('login') }}"><b>Login</b></a>
     </div>
 
     <div class="card">
-        <div class="card-body register-card-body">
+        {{-- <div class="card-body register-card-body">
             <p class="login-box-msg">Register a new membership</p>
 
             <form method="POST" action="{{ route('register') }}">
@@ -87,7 +87,7 @@
             </div>
 
             <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
-        </div>
+        </div> --}}
         <!-- /.form-box -->
     </div><!-- /.card -->
 </div>
