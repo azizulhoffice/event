@@ -31,7 +31,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check-admin']], func
 });
 
 Route::group(['prefix' => 'judge', 'middleware' => ['auth','check-judge'], 'as' => 'judge.'], function () {
-    Route::get('/','JudgeController@index');
+    Route::get('/','JudgeController@index')->name('index');
     Route::get('event/{id}/score','JudgeController@eventScore')->name('event.score');
+    Route::get('event/{id}/score/data','JudgeController@getScoreDataForEvent')->name('event.score-data');
     Route::resource('scores', 'ScoreController');
+    Route::post('/mark/absent','ScoreController@absentStore')->name('participant.absent');
 });

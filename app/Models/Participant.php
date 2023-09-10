@@ -20,6 +20,7 @@ class Participant extends Model
         'email',
         'phone',
     ];
+    
     public function event()
     {
         return $this->belongsTo(Event::class);

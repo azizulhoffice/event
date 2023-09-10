@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Event extends Model
 {
@@ -20,5 +21,9 @@ class Event extends Model
 
     public function participants() {
         return $this->hasMany(Participant::class);
+    }
+
+    public function scores() {
+        return $this->hasMany(Score::class)->where('user_id',Auth::id());
     }
 }
