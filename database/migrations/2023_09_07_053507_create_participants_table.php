@@ -26,8 +26,8 @@ class CreateParticipantsTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->bigInteger('rank')->nullable();
-            $table->decimal('total_earn_score',3,2)->nullable();
-            $table->decimal('avg_score',3,2)->nullable();
+            $table->decimal('total_earn_score',8, 2)->default(0.00);
+            $table->decimal('avg_score',8, 2)->default(0.00);
             $table->timestamps();
         });
     }
