@@ -21,11 +21,10 @@
         @php
         $user = auth()->user();
         @endphp
-        @if($user->role == "admin")
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-
+            @if($user->role == "admin")
             {{-- @can('dashboard-view') --}}
             <li class="nav-item {{ isActive(['admin/dashboard*']) }}">
                 <a href="#" class="nav-link {{ isActive('admin/dashboard*') }}">
@@ -112,15 +111,17 @@
                 </ul>
             </li>
             <!--Event end-->
+            <!--Judge start-->
+            @elseif($user->role == 'judge')
+            <li class="nav-item">
+                <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
+                    <i class="nav-icon far fa-calendar"></i>
+                    <p> Events</p>
+                </a>
+            </li>
+            @endif
+            <!--Judge end-->
         </ul>
-        @elseif($user->role == 'judge')
-        <li class="nav-item">
-            <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
-                <i class="nav-icon far fa-calendar"></i>
-                <p> Events</p>
-            </a>
-        </li>
-        @endif
     </nav>
     <!-- /.sidebar-menu -->
 </div>
