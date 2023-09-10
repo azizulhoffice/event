@@ -21,11 +21,10 @@
         @php
         $user = auth()->user();
         @endphp
-        @if($user->role == "admin")
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-
+            @if($user->role == "admin")
             {{-- @can('dashboard-view') --}}
             <li class="nav-item {{ isActive(['admin/dashboard*']) }}">
                 <a href="#" class="nav-link {{ isActive('admin/dashboard*') }}">
@@ -112,35 +111,17 @@
                 </ul>
             </li>
             <!--Event end-->
-
-            <!--Event start-->
-            <li class="nav-item has-treeview {{ isActive(['admin/score*']) }}">
-                <a href="#" class="nav-link {{ isActive(['admin/score*']) }}">
-                    <i class="nav-icon fas fa-columns"></i>
-                    <p>
-                        Score
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
+            <!--Judge start-->
+            @elseif($user->role == 'judge')
+            <li class="nav-item">
+                <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
+                    <i class="nav-icon far fa-calendar"></i>
+                    <p> Events</p>
                 </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('score.create') }}" class="nav-link {{ isActive('admin/score/create') }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Score Add</p>
-                        </a>
-                    </li>
-                </ul>
             </li>
-            <!--Event end-->
+            @endif
+            <!--Judge end-->
         </ul>
-        @elseif($user->role == 'judge')
-        <li class="nav-item">
-            <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
-                <i class="nav-icon far fa-calendar"></i>
-                <p>Events</p>
-            </a>
-        </li>
-        @endif
     </nav>
     <!-- /.sidebar-menu -->
 </div>

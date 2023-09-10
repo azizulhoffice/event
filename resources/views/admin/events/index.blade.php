@@ -49,7 +49,15 @@
                                     @endforeach
                                 </td>
                                 <td class="btn-group">
-                                    <!-- Add action buttons here, e.g., edit and delete -->
+                                    <form action="{{ route('events.toggle-visibility',$event->id) }}" method="POST" @if($event->is_published) onsubmit="return confirm('Are you sure you want to hide this event?');" @else onsubmit="return confirm('Are you sure you want to publish this event?');" @endif>
+                                        @csrf
+                                        @if($event->is_published)
+                                        <button class="btn btn-warning">Hide</button>
+                                        @else
+                                        <button class="btn btn-success">Publish</button>
+
+                                        @endif
+                                    </form>
                                     <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('events.destroy',$event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
                                         @method('DELETE')

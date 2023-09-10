@@ -39,11 +39,11 @@ class ScoreController extends Controller
             'participant_id' => 'required|integer',
             'event_id' => 'integer',
             'score' => 'required|numeric',
-            'absent' => 'boolean',
             'user_id' => 'required|integer', //User=>role is judge
         ]);
-        Score::create($request->all());
+        $score =  Score::create($request->all());
         return response()->json([
+            'data' => $score,
             'success' => true,
             'message' => 'Score created successfully'
         ]);
@@ -90,8 +90,29 @@ class ScoreController extends Controller
      * @param  \App\Models\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Score $score)
+    public function destroy($id)
     {
-        //
+         $score = Score::find($id);
+        $score->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Score deleted successfully',
+            'data'=>$score,
+        ]);
+    }
+    public function absentStore(Request $request)
+    {
+        $this->validate($request, [
+            'participant_id' => 'required|integer',
+            'event_id' => 'integer',
+            'absent' => 'required|boolean',
+            'user_id' => 'required|integer', //User=>role is judge
+        ]);
+        $score =  Score::create($request->all());
+        return response()->json([
+            'data'=>$score,
+            'success' => true,
+            'message' => 'Score created successfully'
+        ]);
     }
 }

@@ -20,22 +20,18 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check-admin']], function () {
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','check-admin']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('roles', 'RoleController');
-    Route::resource('users', 'UserController');
-    Route::resource('participants', 'ParticipantController');
-    Route::resource('events', 'EventController');
-    // Route::any('score/create', [App\Http\Controllers\EventController::class,'scoreCreate'])->name('score.create');
-    Route::resource('scores', 'ScoreController');
+        Route::resource('roles', 'RoleController');
+        Route::resource('users', 'UserController');
+        Route::resource('participants', 'ParticipantController');
+        Route::resource('events', 'EventController');
+        Route::post('/events/{id}/visibility/toggle', 'EventController@toggleVisibility')->name('events.toggle-visibility');
 });
 
-Route::group(['prefix' => 'judge', 'middleware' => ['auth', 'check-judge'], 'as' => 'judge.'], function () {
-    Route::get('/', 'JudgeController@index')->name('index');
-    Route::get('event/{id}/score', 'JudgeController@eventScore')->name('event.score');
-    // Route::resource('roles', 'RoleController');
-    // Route::resource('users', 'UserController');
-    // Route::resource('participants', 'ParticipantController');
-    // Route::resource('events', 'EventController');
-    // Route::any('score/create', [App\Http\Controllers\EventController::class,'scoreCreate'])->name('score.create');
+Route::group(['prefix' => 'judge', 'middleware' => ['auth','check-judge'], 'as' => 'judge.'], function () {
+    Route::get('/','JudgeController@index');
+    Route::get('event/{id}/score','JudgeController@eventScore')->name('event.score');
+    Route::resource('scores', 'ScoreController');
 });

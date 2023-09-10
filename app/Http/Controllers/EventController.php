@@ -27,7 +27,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $users = User::where('role','judge')->get();
+        $users = User::where('role', 'judge')->get();
         return view('admin.events.create', compact('users'));
     }
 
@@ -39,7 +39,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|string|unique:events,name',
             'description' => 'nullable|string',
             'judges' => 'required|array',
@@ -53,16 +53,6 @@ class EventController extends Controller
         return redirect()->route('events.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -73,10 +63,10 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-        $users = User::where('role','judge')->get();
+        $users = User::where('role', 'judge')->get();
         $event->load('users');
 
-        return view('admin.events.edit',compact('event','users'));
+        return view('admin.events.edit', compact('event', 'users'));
     }
 
     /**
@@ -88,13 +78,13 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'name' => 'required|string|unique:events,name,'.$id,
+        $this->validate($request, [
+            'name' => 'required|string|unique:events,name,' . $id,
             'description' => 'nullable|string',
             'judges' => 'required|array',
         ]);
         $event = Event::find($id);
-         $event->update([
+        $event->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
@@ -110,10 +100,21 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        $event = Event::where('id',$id)->delete();
+        $event = Event::where('id', $id)->delete();
         return redirect()->back();
     }
-    public function scoreCreate(){
+
+    public function scoreCreate()
+    {
         return view('admin.events.score-create');
+    }
+
+    function toggleVisibility($id)
+    {
+        $event = Event::find($id);
+        $event->is_published = !$event->is_published;
+        $event->update();
+
+        return redirect()->back();
     }
 }
