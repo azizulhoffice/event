@@ -7,6 +7,7 @@ use App\Models\Participant;
 use App\Models\Score;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -126,40 +127,48 @@ class EventController extends Controller
         $particapant_score = Score::where('event_id', $id)
             ->selectRaw('participant_id, sum(score) as total_score,avg(score) as avg_score')
             ->groupBy('participant_id')
-            ->orderBy('total_score', 'desc')
+            ->orderBy('avg_score', 'desc')
             ->get();
         $data = [];
         $i = 0;
         $r = 1;
+        $prev_score = 0;
+        DB::beginTransaction();
         foreach ($particapant_score as $score) {
             if ($i == 0) {
                 $rank = 1;
             } else {
-                if ($score->total_score < $data[$i - 1]['total_earn_score']) {
+                if ($score->avg_score < $prev_score) {
                     $rank = ++$r;
-                } else {
+                } else if($score->avg_score == $prev_score) {
                     $rank = $r;
                 }
             }
+            Participant::where('id', $score->participant_id)->update([
+                'total_earn_score' => number_format($score->total_score,2),
+                'avg_score' => number_format($score->avg_score,2),
+                'rank'  => $rank,
+            ]);
             $data[] = [
-                'participant_id' => $score->participant_id,
+                'id' => $score->participant_id,
                 'total_earn_score' => $score->total_score,
                 'avg_score' => $score->avg_score,
                 'rank'  => $rank,
             ];
             $i++;
+            $prev_score = $score->avg_score;
         }
-        dd($data);
-        return view('admin.events.result', compact('participants'));
+        DB::commit();
+        // Participant::upsert($data, ['id',], ['total_earn_score', 'avg_score','rank',]);
+        return redirect()->back()->with('success', 'Result Published Successfully');
     }
     public function result($id)
     {
-
+        $event = Event::find($id);
         $participants = Participant::where('event_id', $id)
-            ->orderBy('total_earn_score', 'desc')
+            ->orderBy('avg_score', 'desc')
             ->orderBy('rank', 'asc')
             ->get();
-        dd($participants->toArray());
-        return view('admin.events.result', compact('participants'));
+        return view('admin.events.result', compact('participants','event'));
     }
 }

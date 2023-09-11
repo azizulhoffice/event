@@ -41,7 +41,7 @@ class JudgeController extends Controller
                 if($score->absent){
                     $data["absent"][] = $p;
                 }else{
-                    $data["marked"][] = $p;
+                    $data["marked"][] = $score->load('participant');
                 }
             }else{
                 $data["unmarked"][] = $p;

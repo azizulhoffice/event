@@ -1,4 +1,13 @@
 @extends('layouts.main')
+@section('styles')
+<style>
+    .btn {
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+
+@endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
@@ -27,7 +36,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
 
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped text-center">
                         <thead>
                             <tr>
                                 <th scope="col">SL</th>
@@ -35,6 +44,7 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Judges</th>
                                 <th scope="col">Action</th>
+                                <th scope="col">Result</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,22 +58,33 @@
                                     <span class="badge badge-info">{{ ucfirst($judge->username) }}</span>
                                     @endforeach
                                 </td>
-                                <td class="btn-group">
-                                    <form action="{{ route('events.toggle-visibility',$event->id) }}" method="POST" @if($event->is_published) onsubmit="return confirm('Are you sure you want to hide this event?');" @else onsubmit="return confirm('Are you sure you want to publish this event?');" @endif>
-                                        @csrf
-                                        @if($event->is_published)
-                                        <button class="btn btn-warning">Hide</button>
-                                        @else
-                                        <button class="btn btn-success">Publish</button>
-                                        @endif
-                                    </form>
-                                    <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>
-                                    <form action="{{ route('events.destroy',$event->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="btn btn-danger">Delete</button>
-                                    </form>
-                                    <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Result</a>
+                                <td>
+                                    <div class="btn-group">
+                                        <form action="{{ route('events.toggle-visibility',$event->id) }}" method="POST"
+                                            @if($event->is_published) onsubmit="return confirm('Are you sure you want to
+                                            hide this event?');" @else onsubmit="return confirm('Are you sure you want
+                                            to publish this event?');" @endif>
+                                            @csrf
+                                            @if($event->is_published)
+                                            <button class="btn btn-warning">Hide</button>
+                                            @else
+                                            <button class="btn btn-success">Publish</button>
+                                            @endif
+                                        </form>&nbsp;
+                                        <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>&nbsp;
+                                        <form action="{{ route('events.destroy',$event->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this event?');">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('events.result-publish',$event->id) }}" class="btn btn-warning">Publish</a>&nbsp;
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Result</a>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

@@ -21,6 +21,13 @@
     .marked.active {
         background-color: green !important;
     }
+    .updatescore{
+        width: 70px;
+        background-color: green !important;
+        color:white;
+        font-weight: bold;
+        /* text-align: center; */
+    }
 </style>
 
 @endsection
@@ -70,8 +77,8 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr id="marked_1">
+                                    <tbody id="marked_tbody">
+                                        {{-- <tr id="marked_1">
                                             <td>5</td>
                                             <td>Some Name</td>
                                             <td>
@@ -83,7 +90,7 @@
                                                 </button>
                                             </td>
 
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -110,11 +117,12 @@
                                             <th>SN</th>
                                             <th>Name</th>
                                             <th>Absent</th>
+                                            <th>Score</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr id="absent_1">
+                                    <tbody id="absent_tbody">
+                                        {{-- <tr id="absent_1">
                                             <td>5</td>
                                             <td>Some Name</td>
                                             <td></td>
@@ -124,7 +132,7 @@
                                                 </button>
                                             </td>
 
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -140,6 +148,7 @@
 <script>
     $(document).ready(function() {
         var eventId = "{{ $event->id }}";
+        var userId = {{ auth()->user()->id }};
         getData();
 
         function getData() {
@@ -160,38 +169,156 @@
                                     <td>${participant.name_bn ?? participant.name_en}</td>
                                     <td><button class="btn btn-sm btn-danger" id="absentBtn" data-participantID="${participant.id}">A</button></td>
                                     <td><input type="text" name="score-${participant.id}" class="form-control"></td>
-                                    <td><button class="btn btn-sm btn-success">SAVE</button></td>
+                                    <td><button class="btn btn-sm btn-success save" data-participantID="${participant.id}">SAVE</button></td>
                                 </tr>`;
                         }
                         $("#unmarked_tbody").html(unmarkedHtml);
                     }
-                },
+                    if (marked.length > 0) {
+                    var markedHtml = "";
+                    for (var i = 0; i < marked.length; i++) {
+                        var score= marked[i];
+                        markedHtml +=`
+                            <tr id="marked_${score.participant.id}">
+                                <td>${score.participant.serial_no}</td>
+                                <td>${score.participant.name_bn ?? score.participant.name_en}</td>
+                                <td class="jsutify-content-center">
+                                    <input type="text" name="updatescore-${score.id}" disabled class="updatescore btn" value="${score.score??'0.00'}">
+                                </td>
+                                <td>
+                                    <button id="remark" data-scoreID="${score.id}" disabled name="update-${score.id}" class="btn btn-sm btn-warning update">
+                                        Update
+                                    </button>
+                                    <button data-scoreID="${score.id}" class="editBtn btn btn-sm btn-danger">
+                                        Edit
+                                    </button>
+                                </td>
+
+                            </tr>`;
+                        }
+                        $("#marked_tbody").html(markedHtml);
+                        }
+                    if (absent.length > 0) {
+                    var absentHtml = "";
+                    for (var i = 0; i < absent.length; i++) {
+                        var participant=absent[i];
+                        absentHtml +=`
+                        <tr id="absent_${participant.id}">
+                        <td>${participant.serial_no}</td>
+                        <td>${participant.name_bn ?? participant.name_en}</td>
+                        <td>
+                            Absent
+                        </td>
+                        <td><input type="text" name="updatescore-${participant.id}" disabled class="updatescore btn" value="0.00"></td>
+                        <td>
+                            <button id="remark" data-scoreID="${participant.id}" disabled name="update-${participant.id}" class="btn btn-sm btn-warning update">
+                                Update
+                            </button>
+                            <button data-scoreID="${participant.id}" class="editBtn btn btn-sm btn-danger">
+                                Edit
+                            </button>
+                        </td>
+                        </tr>`;
+                        }
+                        $("#absent_tbody").html(absentHtml);
+                        }
+
+                    },
                 error: function(error) {
                     console.error("Error:", error);
                 }
             });
         }
-
+        // save score as absent for unmarked participant
         $(document).on("click", "#absentBtn", function() {
             var participantId = $(this).attr("data-participantID");
-
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var data = {
                 "event_id": eventId,
+                "user_id": userId,
                 "participant_id": participantId,
-                "absent": true,
+                "absent": 1,
             };
             $.ajax({
                 type: "POST",
                 url: "{{ route('judge.participant.absent') }}", // Replace with your API endpoint URL
+                headers: {
+                'X-CSRF-TOKEN': csrfToken, // Include the CSRF token in the headers
+                },
                 data: data,
                 success: function(response) {
                     $("#unmark_" + participantId).remove();
+                    getData();
                 },
                 error: function(error) {
                     console.error("Error:", error);
                 }
             });
         });
+
+        // save score for unmarked participant
+        $('table').on("click", ".save", function() {
+        var participantId = $(this).attr("data-participantID");
+        var score = $("input[name='score-"+participantId+"']").val();
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var data = {
+        "event_id": eventId,
+        "user_id": userId,
+        "participant_id": participantId,
+        "score": score,
+        };
+        $.ajax({
+                type: "POST",
+                url: "{{ route('judge.scores.store') }}", // Replace with your API endpoint URL
+                headers: {
+                'X-CSRF-TOKEN': csrfToken, // Include the CSRF token in the headers
+                },
+                data: data,
+                success: function(response) {
+                  $("#unmark_" + participantId).remove();
+                getData();
+                },
+                error: function(error) {
+                console.error("Error:", error);
+                }
+        });
+        });
+   //update score enable
+   $('table').on("click", ".editBtn", function() {
+   var scoreId = $(this).attr("data-scoreID");
+   $("input[name='updatescore-"+scoreId+"']").prop('disabled', false);
+   $("button[name='update-"+scoreId+"']").prop('disabled', false);
+   });
+
+
+   // Update score for marked participant
+    $('table').on("click", ".update", function() {
+    var scoreId = $(this).attr("data-scoreID");
+    var score = $("input[name='updatescore-"+scoreId+"']").val();
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    var data = {
+    "event_id": eventId,
+    "user_id": userId,
+    "score": score,
+    };
+    let url = `{{url('judge/scores/${scoreId}')}}`;
+    $.ajax({
+    type: "PUT",
+    url:url,
+    headers: {
+    'X-CSRF-TOKEN': csrfToken, // Include the CSRF token in the headers
+    },
+    data: data,
+    success: function(response) {
+    getData();
+    },
+    error: function(error) {
+    console.error("Error:", error);
+    }
     });
+    });
+
+    });
+
 </script>
 @endsection

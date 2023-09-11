@@ -15,4 +15,9 @@ class Score extends Model
         'absent',
         'user_id',
     ];
+
+    public function participant()
+    {
+        return $this->belongsTo(Participant::class);
+    }
 }

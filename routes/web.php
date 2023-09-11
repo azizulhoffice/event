@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +23,13 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','check-admin']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('roles', 'RoleController');
+        // Route::resource('roles', 'RoleController');
         Route::resource('users', 'UserController');
         Route::resource('participants', 'ParticipantController');
         Route::resource('events', 'EventController');
         Route::post('/events/{id}/visibility/toggle', 'EventController@toggleVisibility')->name('events.toggle-visibility');
         Route::any('events/{id}/result', 'EventController@result')->name('events.result');
+        Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
 });
 
 Route::group(['prefix' => 'judge', 'middleware' => ['auth','check-judge'], 'as' => 'judge.'], function () {

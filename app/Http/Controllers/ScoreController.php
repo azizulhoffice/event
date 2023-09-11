@@ -35,7 +35,7 @@ class ScoreController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+       $this->validate($request,[
             'participant_id' => 'required|integer',
             'event_id' => 'integer',
             'score' => 'required|numeric',
@@ -79,9 +79,19 @@ class ScoreController extends Controller
      * @param  \App\Models\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Score $score)
+    public function update(Request $request,$id)
     {
-        //
+        $this->validate($request, [
+            'score' => 'required|numeric', //User=>role is judge
+        ]);
+        $score =  Score::find($id);
+        $score->score = $request->score;
+        $score->save();
+        return response()->json([
+            'data' => $score,
+            'success' => true,
+            'message' => 'Score Updated successfully'
+        ]);
     }
 
     /**
