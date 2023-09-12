@@ -159,7 +159,6 @@ class EventController extends Controller
             $prev_score = $score->avg_score;
         }
         DB::commit();
-        // Participant::upsert($data, ['id',], ['total_earn_score', 'avg_score','rank',]);
         return redirect()->back()->with('success', 'Result Published Successfully');
     }
     public function result($id)

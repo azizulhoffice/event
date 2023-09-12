@@ -168,7 +168,7 @@
                                     <td>${participant.serial_no}</td>
                                     <td>${participant.name_bn ?? participant.name_en}</td>
                                     <td><button class="btn btn-sm btn-danger" id="absentBtn" data-participantID="${participant.id}">A</button></td>
-                                    <td><input type="text" name="score-${participant.id}" class="form-control"></td>
+                                    <td><input type="number" name="score-${participant.id}" class="form-control"></td>
                                     <td><button class="btn btn-sm btn-success save" data-participantID="${participant.id}">SAVE</button></td>
                                 </tr>`;
                         }
@@ -177,19 +177,19 @@
                     if (marked.length > 0) {
                     var markedHtml = "";
                     for (var i = 0; i < marked.length; i++) {
-                        var score= marked[i];
+                        var participant= marked[i];
                         markedHtml +=`
-                            <tr id="marked_${score.participant.id}">
-                                <td>${score.participant.serial_no}</td>
-                                <td>${score.participant.name_bn ?? score.participant.name_en}</td>
+                            <tr id="marked_${participant.score.id}">
+                                <td>${participant.serial_no}</td>
+                                <td>${participant.name_bn ?? participant.name_en}</td>
                                 <td class="jsutify-content-center">
-                                    <input type="text" name="updatescore-${score.id}" disabled class="updatescore btn" value="${score.score??'0.00'}">
+                                    <input type="number" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="${participant.score.score??'0.00'}">
                                 </td>
                                 <td>
-                                    <button id="remark" data-scoreID="${score.id}" disabled name="update-${score.id}" class="btn btn-sm btn-warning update">
+                                    <button id="remark" data-scoreID="${participant.score.id}" disabled name="update-${participant.score.id}" class="btn btn-sm btn-warning update">
                                         Update
                                     </button>
-                                    <button data-scoreID="${score.id}" class="editBtn btn btn-sm btn-danger">
+                                    <button data-scoreID="${participant.score.id}" class="editBtn btn btn-sm btn-danger">
                                         Edit
                                     </button>
                                 </td>
@@ -203,18 +203,18 @@
                     for (var i = 0; i < absent.length; i++) {
                         var participant=absent[i];
                         absentHtml +=`
-                        <tr id="absent_${participant.id}">
+                        <tr id="absent_${participant.score.id}">
                         <td>${participant.serial_no}</td>
                         <td>${participant.name_bn ?? participant.name_en}</td>
                         <td>
                             Absent
                         </td>
-                        <td><input type="text" name="updatescore-${participant.id}" disabled class="updatescore btn" value="0.00"></td>
+                        <td><input type="number" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="0.00"></td>
                         <td>
-                            <button id="remark" data-scoreID="${participant.id}" disabled name="update-${participant.id}" class="btn btn-sm btn-warning update">
+                            <button id="remark" data-scoreID="${participant.score.id}" disabled name="update-${participant.score.id}" class="btn btn-sm btn-warning update">
                                 Update
                             </button>
-                            <button data-scoreID="${participant.id}" class="editBtn btn btn-sm btn-danger">
+                            <button data-scoreID="${participant.score.id}" class="editBtn btn btn-sm btn-danger">
                                 Edit
                             </button>
                         </td>

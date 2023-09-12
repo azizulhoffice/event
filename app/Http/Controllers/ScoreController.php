@@ -86,6 +86,7 @@ class ScoreController extends Controller
         ]);
         $score =  Score::find($id);
         $score->score = $request->score;
+        $score->absent = 0;
         $score->save();
         return response()->json([
             'data' => $score,

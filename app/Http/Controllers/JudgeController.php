@@ -38,10 +38,11 @@ class JudgeController extends Controller
         foreach($event->participants as $p){
             $score = $scores->where('participant_id',$p->id)->first();
             if($score != null){
+                $p->score = $score;
                 if($score->absent){
                     $data["absent"][] = $p;
                 }else{
-                    $data["marked"][] = $score->load('participant');
+                    $data["marked"][] = $p;
                 }
             }else{
                 $data["unmarked"][] = $p;
