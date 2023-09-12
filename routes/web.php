@@ -16,7 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    return Auth::check() ? view('welcome') : redirect('/login');
+    $role = Auth::check()?Auth::user()->role:'';
+    if($role == 'admin'){
+        return redirect('/admin');
+    } else if ($role == 'event-manager'|| $role == 'judge'){
+        return redirect('/judge');
+    }
+    else if ($role == 'user'){
+        return view('welcome');
+    }
+    else{
+        return redirect('/login');
+    }
 });
 
 Auth::routes();
