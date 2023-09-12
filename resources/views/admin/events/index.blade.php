@@ -77,13 +77,16 @@
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-danger">Delete</button>
-                                        </form>
+                                        </form> &nbsp;
+                                        {{--  --}}
+                                        <a href="{{ route('events.participant',$event->id) }}" class="btn btn-primary">Participants</a>&nbsp;
                                     </div>
                                 </td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('events.result-publish',$event->id) }}" class="btn btn-warning">Publish</a>&nbsp;
-                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Result</a>
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Result</a> &nbsp;
+                                        <a href="" class="btn btn-primary">Marksheet</a>&nbsp;
                                     </div>
                                 </td>
                             </tr>

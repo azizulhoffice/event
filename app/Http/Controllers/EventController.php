@@ -30,7 +30,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $users = User::where('role', 'judge')->get();
+        $users = User::whereIn('role', ['judge', 'event-manager'])->get();
         return view('admin.events.create', compact('users'));
     }
 
@@ -140,13 +140,13 @@ class EventController extends Controller
             } else {
                 if ($score->avg_score < $prev_score) {
                     $rank = ++$r;
-                } else if($score->avg_score == $prev_score) {
+                } else if ($score->avg_score == $prev_score) {
                     $rank = $r;
                 }
             }
             Participant::where('id', $score->participant_id)->update([
-                'total_earn_score' => number_format($score->total_score,2),
-                'avg_score' => number_format($score->avg_score,2),
+                'total_earn_score' => number_format($score->total_score, 2),
+                'avg_score' => number_format($score->avg_score, 2),
                 'rank'  => $rank,
             ]);
             $data[] = [
@@ -168,6 +168,22 @@ class EventController extends Controller
             ->orderBy('avg_score', 'desc')
             ->orderBy('rank', 'asc')
             ->get();
-        return view('admin.events.result', compact('participants','event'));
+        return view('admin.events.result', compact('participants', 'event'));
+    }
+    public function participantList($id)
+    {
+        $event = Event::find($id);
+        $participants = Participant::where('event_id', $id)
+            ->orderBy('serial_no', 'asc')
+            ->get();
+        return view('admin.events.event-participant', compact('participants', 'event'));
+    }
+    public function marksheet($id)
+    {
+        $event = Event::find($id);
+        $participants = Participant::where('event_id', $id)
+            ->orderBy('serial_no', 'asc')
+            ->get();
+        return view('admin.events.marksheet', compact('participants', 'event'));
     }
 }

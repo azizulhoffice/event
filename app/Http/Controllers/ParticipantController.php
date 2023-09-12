@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SampleParticipantExport;
 use App\Imports\ParticipantsImport;
 use App\Models\Event;
 use App\Models\Participant;
@@ -101,5 +102,8 @@ class ParticipantController extends Controller
     {
         $participants = Participant::all();
         return view('admin.participants.import', compact('participants'));
+    }
+    public function excelSample(){
+        return Excel::download(new SampleParticipantExport(), 'participant_sample.xlsx');
     }
 }

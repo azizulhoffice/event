@@ -50,7 +50,10 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="excel_file" class="required">Participants Excel File</label>
-                                                <input type="file" required class="form-control" name="excel_file">
+                                                <input type="file" required class="form-control" name="excel_file"><br>
+                                                <a href="{{ route('participants.sample') }}" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-download"> Sample</i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

@@ -43,6 +43,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::post('/events/{id}/visibility/toggle', 'EventController@toggleVisibility')->name('events.toggle-visibility');
         Route::any('events/{id}/result', 'EventController@result')->name('events.result');
         Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
+        Route::any('events/{id}/participant', 'EventController@participantList')->name('events.participant');
+        Route::any('events/{id}/marksheet', 'EventController@marksheet')->name('events.marksheet');
     });
 });
 
@@ -53,3 +55,4 @@ Route::group(['prefix' => 'judge', 'middleware' => ['auth', 'check-judge'], 'as'
     Route::resource('scores', 'ScoreController');
     Route::post('/mark/absent', 'ScoreController@absentStore')->name('participant.absent');
 });
+Route::get('/participants/sample', 'ParticipantController@excelSample')->name('participants.sample');

@@ -36,7 +36,7 @@
                                 <th>Name</th>
                                 <th>Event</th>
                                 <th>Class</th>
-                                <td>Inst Name</td>
+                                <th>Inst Name</th>
                                 <th>Inst Address</th>
                                 <th>Phone</th>
                                 {{-- <th>Action</th> --}}
@@ -50,7 +50,7 @@
                             <tr>
                                 <td>{{ $startNumber++ }}</td>
                                 <td>{{ $participant->serial_no }}</td>
-                                <td>{{ $participant->name_en??$participant->name_bn }}</td>
+                                <td>{{ $participant->name_bn??$participant->name_en }}</td>
                                 <td>{{ $participant->event->name }}</td>
                                 <td>{{ $participant->class }}</td>
                                 <td>{{ $participant->inst_name }}</td>
