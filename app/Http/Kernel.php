@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\EventManagerMiddleware;
 use App\Http\Middleware\JudgeMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check-admin' => AdminMiddleware::class,
         'check-judge' => JudgeMiddleware::class,
+        'check-event-manager' => EventManagerMiddleware::class,
     ];
 }

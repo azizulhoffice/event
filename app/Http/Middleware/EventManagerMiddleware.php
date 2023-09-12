@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class JudgeMiddleware
+class EventManagerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class JudgeMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // Check if the user is logged in and their role is "judge"
-        if (auth()->check() && (auth()->user()->role === 'judge' || auth()->user()->role === 'event-manager')) {
+        // Check if the user is logged in and their role is "admin"
+        if (auth()->check() && (auth()->user()->role === 'event-manager' || auth()->user()->role === 'admin')) {
             return $next($request);
         }
 

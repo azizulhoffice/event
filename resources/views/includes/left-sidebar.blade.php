@@ -20,12 +20,12 @@
     <nav class="mt-2">
         @php
         $user = auth()->user();
+        $role = $user->role;
         @endphp
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            @if($user->role == "admin")
-            {{-- @can('dashboard-view') --}}
+            @if($role == "admin")
             <li class="nav-item {{ isActive(['admin/dashboard*']) }}">
                 <a href="#" class="nav-link {{ isActive('admin/dashboard*') }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -34,7 +34,6 @@
                     </p>
                 </a>
             </li>
-            {{-- @endcan --}}
             <!--users start-->
             <li class="nav-item has-treeview {{ isActive(['admin/users*']) }}">
                 <a href="#" class="nav-link {{ isActive(['admin/users*']) }}">
@@ -60,6 +59,8 @@
                 </ul>
             </li>
             <!--users end-->
+            @endif
+            @if($role == "admin" || $role == "event-manager")
             <!--participant start-->
             <li class="nav-item has-treeview {{ isActive(['admin/participants*']) }}">
                 <a href="#" class="nav-link {{ isActive(['admin/participants*']) }}">
@@ -111,12 +112,14 @@
                 </ul>
             </li>
             <!--Event end-->
+            @endif
+
+            @if($role == 'judge' || $role == "event-manager")
             <!--Judge start-->
-            @elseif($user->role == 'judge')
             <li class="nav-item">
                 <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
                     <i class="nav-icon far fa-calendar"></i>
-                    <p> Events</p>
+                    <p> Events @if($role == "event-manager") Markings @endif</p>
                 </a>
             </li>
             @endif

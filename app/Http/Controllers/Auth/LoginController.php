@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -61,6 +61,8 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             return redirect()->intended('/admin');
         } elseif ($user->role === 'judge') {
+            return redirect()->route('judge.index');
+        } elseif ($user->role === 'event-manager') {
             return redirect()->route('judge.index');
         }
 
