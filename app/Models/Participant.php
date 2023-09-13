@@ -9,6 +9,7 @@ class Participant extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'uid',
         'serial_no',
         'name_en',
         'name_bn',
