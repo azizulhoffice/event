@@ -28,6 +28,8 @@ class UserUpdateRequest extends FormRequest
             'name' => 'string|required',
             'password' => 'nullable|min:6|confirmed',
             'role' => 'required|string',
+            'phone_number' => 'required|numeric|digits:11|unique:users,phone_number,'.$this->route('user'),
+            'remarks' => 'nullable|string',
         ];
         if ($this->isMethod('put')) {
             // Skip the unique validation for 'username' by excluding the current model's ID

@@ -67,6 +67,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
+                                        <label>Phone Number:</label>
+                                        <input type="text" name="phone_number" value="{{ $user->phone_number }}" class="form-control filter-input" placeholder="Phone number">
+                                        @error('phone_number')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
                                         <label>Role:</label>
                                         <select name="role" class="form-control" required>
                                             <option value="admin" {{$user->role=="admin"?"selected":''}}>admin</option>
@@ -96,6 +105,15 @@
                                         <input type="password" name="password_confirmation"
                                             class="form-control filter-input" value="{{ old('password_confirmation') }}" placeholder="Confirm Password">
                                         @error('password_confirmation')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Remarks:</label>
+                                        <input type="text" value="{{$user->remarks}}" name="remarks" class="form-control filter-input" placeholder="Remarks">
+                                        @error('remarks')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
                                     </div>

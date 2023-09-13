@@ -32,6 +32,7 @@
                                 <th>User</th>
                                 <th>Role</th>
                                 <th>Email</th>
+                                <th>Phone</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                 <td>{{$user->name ?? '-'}}</td>
                                 <td>{{$user->role??'-'}}</td>
                                 <td>{{$user->email?? '-'}}</td>
+                                <td>{{$user->phone_number ?? '-'}}</td>
                                 <td class="d-flex">
                                     <a class="btn btn-primary" href={{route('users.edit',$user->id)}}>Edit</a>&nbsp;
                                     <form action="{{url('admin/users/'.$user->id)}}" method="POST"
