@@ -30,7 +30,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        $users = User::whereIn('role', ['judge', 'event-manager'])->get();
+
+        $users = User::where('role', 'judge')->get();
         return view('admin.events.create', compact('users'));
     }
 
@@ -66,7 +67,7 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-        $users = User::whereIn('role', ['judge', 'event-manager'])->get();
+        $users = User::where('role','judge')->get();
         $event->load('users');
 
         return view('admin.events.edit', compact('event', 'users'));

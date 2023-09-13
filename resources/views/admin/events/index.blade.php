@@ -71,7 +71,8 @@
                                             <button class="btn btn-success">Publish</button>
                                             @endif
                                         </form>&nbsp;
-                                        <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>&nbsp;
+                                        <a href="{{ route('events.edit',$event->id) }}"
+                                            class="btn btn-primary">Edit</a>&nbsp;
                                         @if (Auth::user()->role == "admin")
                                         <form action="{{ route('events.destroy',$event->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this event?');">
@@ -80,16 +81,26 @@
                                             <button class="btn btn-danger">Delete</button>
                                         </form> &nbsp;
                                         @endif
-                                        {{--  --}}
-                                        <a href="{{ route('events.participant',$event->id) }}" class="btn btn-primary">Participants</a>&nbsp;
-                                        <a href="{{ route('events.marksheet',$event->id) }}" class="btn btn-success">Blank Marksheet</a>
+                                        {{-- --}}
+                                        <a href="{{ route('events.participant',$event->id) }}"
+                                            class="btn btn-primary">Participants</a>&nbsp;
+                                        <a href="{{ route('events.marksheet',$event->id) }}"
+                                            class="btn btn-success">Blank Marksheet</a>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('events.result-publish',$event->id) }}" class="btn btn-warning">Publish</a>&nbsp;
-                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Final Marksheet</a> &nbsp;
-                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn btn-info">J Marksheet</a> &nbsp;
+                                        @if (isPublished($event->id))
+                                        <a href="#" onclick="rePublished({{$event->id }})"
+                                            class="btn btn-danger">Published</a>&nbsp;
+                                        @else
+                                        <a href="{{ route('events.result-publish',$event->id) }}"
+                                            class="btn btn-warning">Publish</a>&nbsp;
+                                        @endif
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Final
+                                            Marksheet</a> &nbsp;
+                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn btn-info">J
+                                            Marksheet</a> &nbsp;
                                     </div>
                                 </td>
                             </tr>
@@ -113,3 +124,16 @@
 
 </section>
 @endSection
+@section('js')
+<script>
+    function rePublished(event_id){
+       let ans = confirm("This event is already published !!! \n Are you sure want to update score?");
+       if(ans){
+           let url = `events/${event_id}/result/publish`;
+            window.location.href = url;
+
+       }
+    }
+
+</script>
+@endsection

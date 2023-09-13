@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class Event extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'name','description'
     ];

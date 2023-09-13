@@ -122,7 +122,7 @@
             <!--Event end-->
             @endif
 
-            @if($role == 'judge' || $role == "event-manager")
+            @if($role == 'judge')
             <!--Judge start-->
             <li class="nav-item">
                 <a href="{{ url('judge/') }}" class="nav-link {{ isActive('judge/') }}">
