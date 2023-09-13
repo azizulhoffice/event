@@ -64,6 +64,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
+                                        <label>Phone Number:</label>
+                                        <input type="text" name="phone_number" class="form-control filter-input" placeholder="Phone number">
+                                        @error('phone_number')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
                                         <label>Role:</label>
                                         <select name="role" class="form-control" required>
                                                 <option value="admin">admin</option>
@@ -90,6 +99,15 @@
                                         <label>Confirm Password:</label>
                                         <input type="password" name="password_confirmation" class="form-control filter-input" placeholder="Confirm Password">
                                         @error('password_confirmation')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Remarks:</label>
+                                        <input type="text" name="remarks" class="form-control filter-input" placeholder="Remarks">
+                                        @error('remarks')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
                                     </div>
