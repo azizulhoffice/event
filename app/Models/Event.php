@@ -20,7 +20,7 @@ class Event extends Model
     }
 
     public function participants() {
-        return $this->hasMany(Participant::class);
+        return $this->hasMany(Participant::class)->orderBy('serial_no');
     }
 
     public function scores() {
