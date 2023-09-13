@@ -37,15 +37,15 @@
         <div class="col-md-12">
             {{-- @include('flash-message') --}}
             <div class="card">
-                <div class="card-header text-center"> <br> <br>
-                    <div class="d-flex justify-content-center">
+               <div class="card-header text-center"> <br> <br>
+                <div class="d-flex justify-content-center">
                     <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px" alt="">
                     <h1 style="font-size: 20px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক
-                    পবিত্র মিলাদুন্নবী (সা.) উপলক্ষে <br>তামাদ্দুনিক প্রতিযোগিতা ২০২৩
-                    প্রতিযোগীদের নামের তালিকা</h1>
-                    </div>
-                    <h2 class="card-title" style="font-size: 16px;font-weight:bold;">বিষয়: ({{ $event->name }})</h2>
+                        পবিত্র মিলাদুন্নবী (সা.) উপলক্ষে <br>তামাদ্দুনিক প্রতিযোগিতা ২০২৩
+                        প্রতিযোগীদের নামের তালিকা</h1>
                 </div>
+                <h2 class="card-title" style="font-size: 16px;font-weight:bold;">বিষয়: ({{ $event->name }})</h2>
+            </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="" class="table table-bordered text-center">
@@ -57,25 +57,25 @@
                                 <th>শ্রেণী</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @php
-                            $i = 0;
-                            @endphp
-                            @forelse ( $participants as $participant)
-                            <tr>
-                                <td>{{ $participant->serial_no}}</td>
-                                <td>{{ $participant->name_bn??$participant->name_en }}</td>
-                                <td>{{ $participant->inst_name }} <br>
-                                    {{ $participant->inst_address }}
-                                </td>
-                                <td>{{ $participant->class}}</td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="8" class="text-center">No Data Available</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
+                      <tbody>
+                        @php
+                        $i = 0;
+                        @endphp
+                        @forelse ( $participants as $participant)
+                        <tr>
+                            <td>{{ $participant->rank??'Absent' }}</td>
+                            <td>{{ $participant->serial_no }}</td>
+                            <td>{{ $participant->name_bn??$participant->name_bn }}</td>
+                            <td>{{ $participant->class }}</td>
+                            <td>{{ $participant->inst_name }}</td>
+                            <td>{{ $participant->avg_score??'Absent' }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No Data Available</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
 
                     </table>
                 </div>

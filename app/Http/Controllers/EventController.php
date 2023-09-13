@@ -174,6 +174,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $participants = Participant::where('event_id', $id)
+            ->orderBy('id', 'asc')
             ->orderBy('serial_no', 'asc')
             ->get();
         return view('admin.events.event-participant', compact('participants', 'event'));
