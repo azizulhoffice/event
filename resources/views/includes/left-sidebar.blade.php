@@ -1,6 +1,7 @@
 <!-- Brand Logo -->
 <a href="index3.html" class="brand-link">
-    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        style="opacity: .8">
     <span class="brand-text font-weight-light">Event</span>
 </a>
 
@@ -27,7 +28,7 @@
                  with font-awesome or any other icon font library -->
             @if($role == "admin")
             <li class="nav-item {{ isActive(['admin/dashboard*']) }}">
-                <a href="#" class="nav-link {{ isActive('admin/dashboard*') }}">
+                <a href="{{ url('/') }}" class="nav-link {{ isActive('admin/dashboard*') }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Dashboard
@@ -71,12 +72,16 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/participants/create') }}" class="nav-link {{ isActive('admin/participants/create') }}">
+                        <a href="{{ url('admin/participants/create') }}"
+                            class="nav-link {{ isActive('admin/participants/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Import Participant</p>
                         </a>
                     </li>
+                    @endif
+
                     <li class="nav-item">
                         <a href="{{ url('admin/participants') }}" class="nav-link {{ isActive('admin/participants') }}">
                             <i class="far fa-circle nav-icon"></i>
@@ -97,12 +102,15 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/events/create') }}" class="nav-link {{ isActive('admin/events/create') }}">
+                        <a href="{{ url('admin/events/create') }}"
+                            class="nav-link {{ isActive('admin/events/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Event</p>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}">
                             <i class="far fa-circle nav-icon"></i>

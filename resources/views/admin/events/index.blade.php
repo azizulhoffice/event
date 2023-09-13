@@ -72,12 +72,14 @@
                                             @endif
                                         </form>&nbsp;
                                         <a href="{{ route('events.edit',$event->id) }}" class="btn btn-primary">Edit</a>&nbsp;
+                                        @if (Auth::user()->role == "admin")
                                         <form action="{{ route('events.destroy',$event->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this event?');">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-danger">Delete</button>
                                         </form> &nbsp;
+                                        @endif
                                         {{--  --}}
                                         <a href="{{ route('events.participant',$event->id) }}" class="btn btn-primary">Participants</a>&nbsp;
                                         <a href="{{ route('events.marksheet',$event->id) }}" class="btn btn-success">Blank Marksheet</a>

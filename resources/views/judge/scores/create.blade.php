@@ -29,6 +29,11 @@
         font-weight: bold;
         /* text-align: center; */
     }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
 </style>
 
 @endsection
@@ -147,6 +152,16 @@
 @endsection
 @section('js')
 <script>
+
+    function removeLeadingZero(input) {
+    // Get the input value
+    let value = input.value;
+
+    // Check if the input starts with '0.' and remove the leading '0'
+    if (value.startsWith('0.') && value.length > 2) {
+    input.value = value.substring(1); // Remove the leading '0'
+    }
+    }
     $(document).ready(function() {
         var eventId = "{{ $event->id }}";
         var userId = '{{ auth()->user()->id }}';
@@ -169,7 +184,7 @@
                                     <td>${participant.serial_no}</td>
                                     <td>${participant.name_bn ?? participant.name_en}</td>
                                     <td><button class="btn btn-sm btn-danger" id="absentBtn" data-participantID="${participant.id}">A</button></td>
-                                    <td><input type="number" name="score-${participant.id}" class="form-control"></td>
+                                    <td><input type="number" oninput="removeLeadingZero(this)" name="score-${participant.id}" class="form-control"></td>
                                     <td><button class="btn btn-sm btn-success save" data-participantID="${participant.id}">SAVE</button></td>
                                 </tr>`;
                         }
@@ -184,7 +199,7 @@
                                 <td>${participant.serial_no}</td>
                                 <td>${participant.name_bn ?? participant.name_en}</td>
                                 <td class="jsutify-content-center">
-                                    <input type="number" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="${participant.score.score??'0.00'}">
+                                    <input type="number" oninput="removeLeadingZero(this)" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="${participant.score.score??'0.00'}">
                                 </td>
                                 <td>
                                     <button id="remark" data-scoreID="${participant.score.id}" disabled name="update-${participant.score.id}" class="btn btn-sm btn-warning update">
@@ -210,7 +225,7 @@
                         <td>
                             Absent
                         </td>
-                        <td><input type="number" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="0.00"></td>
+                        <td><input type="number" oninput="removeLeadingZero(this)" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="0.00"></td>
                         <td>
                             <button id="remark" data-scoreID="${participant.score.id}" disabled name="update-${participant.score.id}" class="btn btn-sm btn-warning update">
                                 Update

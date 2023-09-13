@@ -3,14 +3,14 @@
     <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
+    {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{url('/admin/dashboard')}}" class="nav-link">Dashboard</a>
-    </li>
+    </li> --}}
 
 </ul>
 
 <!-- SEARCH FORM -->
-<form class="form-inline ml-3">
+{{-- <form class="form-inline ml-3">
     <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -19,7 +19,7 @@
             </button>
         </div>
     </div>
-</form>
+</form> --}}
 
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto">
@@ -27,23 +27,18 @@
     <!-- User Account: style can be found in dropdown.less -->
     <li class="nav-item dropdown" style="margin-top:4px;">
         <a href="#" class="user dropdown-toggle" data-toggle="dropdown" style="margin:10px;">
-            <span class="hidden-xs">{{ Auth::user()->name }}</span>
+            <span class="hidden-xs">{{ Auth::user()->role }}</span>
         </a>
-        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-
+        <ul class="dropdown-menu dropdown-menu-lg">
             <!-- Menu Footer-->
             <li class="user-footer">
-                <div class="pull-right">
-                    <a href="{{ route('logout') }}"
-                       class="btn btn-default btn-flat"
-                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </div>
+                <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt">
+                        Logout</i>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </li>
         </ul>
     </li>
