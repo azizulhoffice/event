@@ -66,7 +66,7 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-        $users = User::where('role', 'judge')->get();
+        $users = User::whereIn('role', ['judge', 'event-manager'])->get();
         $event->load('users');
 
         return view('admin.events.edit', compact('event', 'users'));
@@ -168,7 +168,20 @@ class EventController extends Controller
             ->orderBy('avg_score', 'desc')
             ->orderBy('rank', 'asc')
             ->get();
-        return view('admin.events.result', compact('participants', 'event'));
+        return view('admin.events.final-marksheet', compact('participants', 'event'));
+    }
+    public function judgeMarksheet(Event $event)
+    {
+        $judges = Score::select('user_id')
+            ->where('event_id', $event->id)
+            ->with('user')
+            ->groupBy('user_id')
+            ->get();
+        $participants = Participant::where('event_id', $event->id)
+            ->orderBy('id', 'asc')
+            ->orderBy('serial_no', 'asc')
+            ->get();
+        return view('admin.events.judge-marksheet', compact('participants', 'event', 'judges'));
     }
     public function participantList($id)
     {
@@ -183,6 +196,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $participants = Participant::where('event_id', $id)
+            ->orderBy('id', 'asc')
             ->orderBy('serial_no', 'asc')
             ->get();
         return view('admin.events.marksheet', compact('participants', 'event'));

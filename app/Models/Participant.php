@@ -20,9 +20,14 @@ class Participant extends Model
         'email',
         'phone',
     ];
-    
+
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
 }

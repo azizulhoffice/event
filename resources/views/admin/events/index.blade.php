@@ -2,7 +2,7 @@
 @section('styles')
 <style>
     .btn {
-        font-size: 12px;
+        font-size: 10px;
         font-weight: bold;
     }
 </style>
@@ -59,7 +59,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <div class="btn-group">
+                                    <div class="d-flex">
                                         <form action="{{ route('events.toggle-visibility',$event->id) }}" method="POST"
                                             @if($event->is_published) onsubmit="return confirm('Are you sure you want to
                                             hide this event?');" @else onsubmit="return confirm('Are you sure you want
@@ -80,13 +80,14 @@
                                         </form> &nbsp;
                                         {{--  --}}
                                         <a href="{{ route('events.participant',$event->id) }}" class="btn btn-primary">Participants</a>&nbsp;
+                                        <a href="{{ route('events.marksheet',$event->id) }}" class="btn btn-success">Blank Marksheet</a>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="btn-group">
+                                    <div class="d-flex">
                                         <a href="{{ route('events.result-publish',$event->id) }}" class="btn btn-warning">Publish</a>&nbsp;
-                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Result</a> &nbsp;
-                                        <a href="" class="btn btn-primary">Marksheet</a>&nbsp;
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Final Marksheet</a> &nbsp;
+                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn btn-info">J Marksheet</a> &nbsp;
                                     </div>
                                 </td>
                             </tr>

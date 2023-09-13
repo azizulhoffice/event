@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
         Route::any('events/{id}/participant', 'EventController@participantList')->name('events.participant');
         Route::any('events/{id}/marksheet', 'EventController@marksheet')->name('events.marksheet');
+        Route::any('events/{event}/judge/marksheet', 'EventController@judgeMarksheet')->name('events.judge.marksheet');
     });
 });
 
