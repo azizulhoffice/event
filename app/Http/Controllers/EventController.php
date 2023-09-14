@@ -47,7 +47,7 @@ class EventController extends Controller
         $this->validate($request, [
             'name' => 'required|string|unique:events,name',
             'description' => 'nullable|string',
-            'judges' => 'required|array',
+            'judges' => 'array',
         ]);
 
         $event = Event::create([
@@ -55,7 +55,7 @@ class EventController extends Controller
             'description' => $request->description,
         ]);
         $event->users()->sync($request->judges);
-        return redirect()->route('events.index');
+        return redirect()->route('events.index')->with('success', 'Event Created Successfully!');
     }
 
 
@@ -94,7 +94,7 @@ class EventController extends Controller
             'description' => $request->description,
         ]);
         $event->users()->sync($request->judges);
-        return redirect()->route('events.index');
+        return redirect()->route('events.index')->with('success', 'Event Updated Successfully!');
     }
 
     /**
@@ -129,7 +129,7 @@ class EventController extends Controller
         $particapant_score = Score::where('event_id', $id)
             ->selectRaw('participant_id, sum(score) as total_score,avg(score) as avg_score')
             ->groupBy('participant_id')
-            ->orderBy('avg_score', 'desc')
+            ->orderBy('total_score', 'desc')
             ->get();
         $data = [];
         $i = 0;
@@ -140,9 +140,9 @@ class EventController extends Controller
             if ($i == 0) {
                 $rank = 1;
             } else {
-                if ($score->avg_score < $prev_score) {
+                if ($score->total_score < $prev_score) {
                     $rank = ++$r;
-                } else if ($score->avg_score == $prev_score) {
+                } else if ($score->total_score == $prev_score) {
                     $rank = $r;
                 }
             }
@@ -158,7 +158,7 @@ class EventController extends Controller
                 'rank'  => $rank,
             ];
             $i++;
-            $prev_score = $score->avg_score;
+            $prev_score = $score->total_score;
         }
         $event = Event::find($id);
         $event->result_published = true;
@@ -177,7 +177,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $participants = Participant::where('event_id', $id)
-            ->orderBy('avg_score', 'desc')
+            ->orderBy('total_earn_score', 'desc')
             ->orderBy('rank', 'asc')
             ->get();
         return view('admin.events.final-marksheet', compact('participants', 'event'));
@@ -190,8 +190,7 @@ class EventController extends Controller
             ->groupBy('user_id')
             ->get();
         $participants = Participant::where('event_id', $event->id)
-            ->orderBy('id', 'asc')
-            ->orderBy('serial_no', 'asc')
+            ->orderBy('rank', 'asc')
             ->get();
         return view('admin.events.judge-marksheet', compact('participants', 'event', 'judges'));
     }
