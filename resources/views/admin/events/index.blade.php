@@ -2,11 +2,20 @@
 @section('styles')
 <style>
     .event-btn {
-        font-size: 10px;
+        /* font-size: 10px; */
         font-weight: bold;
-        width: 80px;
-        height: 40px;
+        /* width: 80px;
+        height: 40px; */
         text-align: center;
+         color: white;
+    }
+    .result-btn {
+        font-size: 11px;
+        font-weight: bold;
+        /* width: 80px;
+        height: 40px; */
+        text-align: center;
+        color: white;
     }
 </style>
 
@@ -69,26 +78,26 @@
                                             to publish this event?');" @endif>
                                             @csrf
                                             @if($event->is_published)
-                                            <button class="btn event-btn btn-warning">Hide</button>
+                                            <button class="btn event-btn btn-warning" title="Event Hide From Judge"><i class="fa fa-eye-slash"></i></button>
                                             @else
-                                            <button class="btn event-btn btn-success">Publish</button>
+                                            <button class="btn event-btn btn-success" title="Event Show in Judge"><i class="fa fa-eye"></i></button>
                                             @endif
                                         </form>&nbsp;
                                         <a href="{{ route('events.edit',$event->id) }}"
-                                            class="btn event-btn btn-primary">Edit</a>&nbsp;
+                                            class="btn event-btn btn-primary" title="Update Event"><i class="fa fa-edit"></i></a>&nbsp;
                                         @if (Auth::user()->role == "admin")
                                         <form action="{{ route('events.destroy',$event->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this event?');">
                                             @method('DELETE')
                                             @csrf
-                                            <button class="btn event-btn btn-danger">Delete</button>
+                                            <button class="btn event-btn btn-danger" title="Delete Event"><i class="fa fa-trash"></i></button>
                                         </form> &nbsp;
                                         @endif
                                         {{-- --}}
-                                        <a href="{{ route('events.marksheet',$event->id) }}"
-                                            class="btn event-btn btn-success">Blank Marksheet</a>&nbsp;
+                                        <a href="{{ route('events.marksheet',$event->id) }}" title="Blank Marksheet"
+                                            class="btn event-btn btn-success"><i class="fa fa-print"></i></a>&nbsp;
                                         <a href="{{ route('events.participant',$event->id) }}"
-                                            class="btn event-btn btn-primary">Participants</a>
+                                            class="btn event-btn btn-primary" title="Participants List"><i class="fa fa-list"></i></a>
 
                                     </div>
                                 </td>
@@ -96,15 +105,15 @@
                                     <div class="d-flex">
                                         @if ($event->result_published)
                                         @if (Auth::user()->role == "admin")
-                                        <a href="{{ route('events.result-unpublish',$event->id) }}" class="btn event-btn btn-danger">Unpublish</a>&nbsp;
+                                        <a href="{{ route('events.result-unpublish',$event->id) }}" class="btn result-btn btn-danger" title="Result Unpublish For Score Update">Unpublish</a>&nbsp;
                                         @endif
-                                        <a href="{{ route('events.result',$event->id) }}" class="btn event-btn btn-primary">Final Result</a> &nbsp;
-                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn event-btn btn-info">Final
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn result-btn btn-primary" title="Total Marks With Ranking">Final Result</a> &nbsp;
+                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn result-btn btn-info" title="Judge,Total Marks,Rank">Final
                                         Marksheet</a> &nbsp;
                                         @else
                                         {{-- @if (Auth::user()->role == "admin") --}}
                                         <a href="{{ route('events.result-publish',$event->id) }}"
-                                            class="btn event-btn btn-success">Publish</a>&nbsp;
+                                            class="btn result-btn btn-success" title="Result Publish">Publish</a>&nbsp;
                                         {{-- @endif --}}
                                         @endif
                                     </div>

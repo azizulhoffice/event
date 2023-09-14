@@ -26,12 +26,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Event Result</h1>
+                <h1>Event Judge Mark List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Event Result</li>
+                    <li class="breadcrumb-item active">Event Judge Result</li>
                 </ol>
             </div>
         </div>
@@ -45,14 +45,14 @@
         <div class="col-md-12">
             {{-- @include('flash-message') --}}
             <div class="card">
-                <div class="card-header text-center"> <br> <br>
+                <div class="card-header text-center">
                     <div class="d-flex justify-content-center">
                         <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px" alt="">
-                        <h1 style="font-size: 20px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক <br>
-                        পবিত্র মিলাদুন্নবী (সা.) উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
+                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক <br>
+                        পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
                             বিচারক মার্কশীট</h1>
                     </div>
-                    <h2 class="card-title" style="font-size: 16px;font-weight:bold;">বিষয়: {{ $event->name }}</h2>
+                    <h2 class="card-title text-center" style="font-size: 16px;font-weight:bold;">বিষয়: {{ $event->name }}</h2>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -83,7 +83,7 @@
                                 @empty
                                 <td></td>
                                 @endforelse
-                                <td>{{ $participant->avg_score }}</td>
+                                <td>{{ $participant->total_earn_score }}</td>
                                 <td>{{ $participant->rank }}</td>
                             </tr>
                             @empty

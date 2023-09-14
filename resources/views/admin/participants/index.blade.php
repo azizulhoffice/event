@@ -1,5 +1,11 @@
 @extends('layouts.main')
-
+@section('style')
+<style>
+    .pagination {
+    font-size: 10px; !important/* Adjust the font-size as needed */
+    }
+</style>
+@endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
@@ -85,7 +91,8 @@
                             <p class="text-center">Showing {{ $participants->firstItem() }} to {{
                                 $participants->lastItem()
                                 }} of {{ $participants->total() }} entries</p>
-                            {{$participants->links()}}
+                            {{$participants->links('pagination::bootstrap-4')}}
+
                         </li>
                     </ul>
                 </div>
