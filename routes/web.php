@@ -45,6 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::any('events/{id}/participant', 'EventController@participantList')->name('events.participant');
         Route::any('events/{id}/marksheet', 'EventController@marksheet')->name('events.marksheet');
         Route::any('events/{event}/judge/marksheet', 'EventController@judgeMarksheet')->name('events.judge.marksheet');
+        Route::get('/bulk-score-update','EventController@bulkScore')->name('events.bulk-score');
+        Route::post('/bulk-score-update','EventController@bulkScoreUpdate')->name('events.bulk-score.update');
     });
 });
 

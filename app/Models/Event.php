@@ -25,4 +25,7 @@ class Event extends Model
     public function scores() {
         return $this->hasMany(Score::class)->where('user_id',Auth::id());
     }
+    public function allScores() {
+        return $this->hasMany(Score::class);
+    }
 }

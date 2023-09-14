@@ -1,7 +1,6 @@
 <!-- Brand Logo -->
 <a href="index3.html" class="brand-link">
-    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-        style="opacity: .8">
+    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">Event</span>
 </a>
 
@@ -74,8 +73,7 @@
                 <ul class="nav nav-treeview">
                     @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/participants/create') }}"
-                            class="nav-link {{ isActive('admin/participants/create') }}">
+                        <a href="{{ url('admin/participants/create') }}" class="nav-link {{ isActive('admin/participants/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Import Participant</p>
                         </a>
@@ -104,8 +102,7 @@
                 <ul class="nav nav-treeview">
                     @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/events/create') }}"
-                            class="nav-link {{ isActive('admin/events/create') }}">
+                        <a href="{{ url('admin/events/create') }}" class="nav-link {{ isActive('admin/events/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Event</p>
                         </a>
@@ -120,6 +117,14 @@
                 </ul>
             </li>
             <!--Event end-->
+            <!--Bulk Score start-->
+            <li class="nav-item">
+                <a href="{{ route('events.bulk-score') }}" class="nav-link {{ isActive('/bulk-score-update') }}">
+                    <i class="nav-icon fas fa-bullseye"></i>
+                    <p>Event Bulk Score</p>
+                </a>
+            </li>
+            <!--Bulk Score end-->
             @endif
 
             @if($role == 'judge')

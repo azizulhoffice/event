@@ -7,6 +7,7 @@ use App\Models\Participant;
 use App\Models\Score;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
@@ -67,7 +68,7 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-        $users = User::where('role','judge')->get();
+        $users = User::where('role', 'judge')->get();
         $event->load('users');
 
         return view('admin.events.edit', compact('event', 'users'));
@@ -165,7 +166,8 @@ class EventController extends Controller
         DB::commit();
         return redirect()->back()->with('success', 'Result Published Successfully! Now you can see the result and cannot update the score.');
     }
-    public function resultUnpublish ($id){
+    public function resultUnpublish($id)
+    {
         $event = Event::find($id);
         $event->result_published = false;
         $event->update();
@@ -210,5 +212,29 @@ class EventController extends Controller
             ->orderBy('serial_no', 'asc')
             ->get();
         return view('admin.events.marksheet', compact('participants', 'event'));
+    }
+
+    public function bulkScore(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->role == "event-manager") {
+            $events = Event::where('user_id', $user->id)->where('result_published',false)->get();
+        } else if ($user->role == "admin") {
+            $events = Event::where('result_published',false)->get();
+        } else {
+            abort(404);
+        }
+        $event = null;
+        if($request->has('event')){
+            $event = $events->where('id',$request->event)->first();
+            if($event != null){
+                $event->load('users','participants','allScores');
+            }
+        }
+        return view('admin.bulk-score-update', compact('events','event'));
+    }
+
+    function bulkScoreUpdate(Request $request) {
+        dd($request->all());
     }
 }
