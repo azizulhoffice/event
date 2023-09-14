@@ -16,16 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    $role = Auth::check()?Auth::user()->role:'';
-    if($role == 'admin'){
+    $role = Auth::check() ? Auth::user()->role : '';
+    if ($role == 'admin' || $role == 'event-manager') {
         return redirect('/admin');
-    } else if ($role == 'event-manager'|| $role == 'judge'){
+    } else if ($role == 'judge') {
         return redirect('/judge');
-    }
-    else if ($role == 'user'){
+    } else if ($role == 'user') {
         return view('welcome');
-    }
-    else{
+    } else {
         return redirect('/login');
     }
 });
@@ -33,13 +31,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    Route::group(['middleware' => ['check-admin']],function(){
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::group(['middleware' => ['check-admin']], function () {
         Route::resource('users', 'UserController');
         Route::any('events/{id}/result/unpublish', 'EventController@resultUnpublish')->name('events.result-unpublish');
         Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
     });
-    Route::group(['middleware' => ['check-event-manager']],function(){
+    Route::group(['middleware' => ['check-event-manager']], function () {
+        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::resource('participants', 'ParticipantController');
         Route::resource('events', 'EventController');
         Route::post('/events/{id}/visibility/toggle', 'EventController@toggleVisibility')->name('events.toggle-visibility');

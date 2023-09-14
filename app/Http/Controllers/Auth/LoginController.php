@@ -71,7 +71,7 @@ class LoginController extends Controller
         } elseif ($user->role === 'judge') {
             return redirect()->route('judge.index');
         } elseif ($user->role === 'event-manager') {
-            return redirect()->route('judge.index');
+            return redirect()->intended('/admin');
         }
 
         return $request->wantsJson()
