@@ -82,25 +82,29 @@
                                         </form> &nbsp;
                                         @endif
                                         {{-- --}}
-                                        <a href="{{ route('events.participant',$event->id) }}"
-                                            class="btn btn-primary">Participants</a>&nbsp;
                                         <a href="{{ route('events.marksheet',$event->id) }}"
-                                            class="btn btn-success">Blank Marksheet</a>
+                                            class="btn btn-success">Blank Marksheet</a>&nbsp;
+                                        <a href="{{ route('events.participant',$event->id) }}"
+                                            class="btn btn-primary">Participants</a>
+
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        @if (isPublished($event->id))
-                                        <a href="#" onclick="rePublished({{$event->id }})"
-                                            class="btn btn-danger">Published</a>&nbsp;
-                                        @else
-                                        <a href="{{ route('events.result-publish',$event->id) }}"
-                                            class="btn btn-warning">Publish</a>&nbsp;
+                                        @if ($event->result_published)
+                                        @if (Auth::user()->role == "admin")
+                                        <a href="{{ route('events.result-unpublish',$event->id) }}" class="btn btn-danger">Unpublish</a>&nbsp;
                                         @endif
-                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-success">Final
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-primary">Final
                                             Marksheet</a> &nbsp;
                                         <a href="{{ route('events.judge.marksheet',$event) }}" class="btn btn-info">J
                                             Marksheet</a> &nbsp;
+                                        @else
+                                        @if (Auth::user()->role == "admin")
+                                        <a href="{{ route('events.result-publish',$event->id) }}"
+                                            class="btn btn-success">Publish</a>&nbsp;
+                                        @endif
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -126,14 +130,5 @@
 @endSection
 @section('js')
 <script>
-    function rePublished(event_id){
-       let ans = confirm("This event is already published !!! \n Are you sure want to update score?");
-       if(ans){
-           let url = `events/${event_id}/result/publish`;
-            window.location.href = url;
-
-       }
-    }
-
 </script>
 @endsection

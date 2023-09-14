@@ -159,8 +159,17 @@ class EventController extends Controller
             $i++;
             $prev_score = $score->avg_score;
         }
+        $event = Event::find($id);
+        $event->result_published = true;
+        $event->update();
         DB::commit();
-        return redirect()->back()->with('success', 'Result Published Successfully');
+        return redirect()->back()->with('success', 'Result Published Successfully! Now you can see the result and cannot update the score.');
+    }
+    public function resultUnpublish ($id){
+        $event = Event::find($id);
+        $event->result_published = false;
+        $event->update();
+        return redirect()->back()->with('success', 'Result Unpublished Successfully! You can now update the score.');
     }
     public function result($id)
     {

@@ -21,6 +21,9 @@ class JudgeController extends Controller
     function eventScore($id)
     {
         $event = Event::find($id);
+        if($event->result_published){
+            return redirect()->back()->with('error', 'This event result already published!!!Score cannot be updated or added.');
+        }
         return view('judge.scores.create', compact('event'));
     }
 

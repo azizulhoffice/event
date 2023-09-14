@@ -36,13 +36,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::group(['middleware' => ['check-admin']],function(){
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::resource('users', 'UserController');
+        Route::any('events/{id}/result/unpublish', 'EventController@resultUnpublish')->name('events.result-unpublish');
+        Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
     });
     Route::group(['middleware' => ['check-event-manager']],function(){
         Route::resource('participants', 'ParticipantController');
         Route::resource('events', 'EventController');
         Route::post('/events/{id}/visibility/toggle', 'EventController@toggleVisibility')->name('events.toggle-visibility');
         Route::any('events/{id}/result', 'EventController@result')->name('events.result');
-        Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
         Route::any('events/{id}/participant', 'EventController@participantList')->name('events.participant');
         Route::any('events/{id}/marksheet', 'EventController@marksheet')->name('events.marksheet');
         Route::any('events/{event}/judge/marksheet', 'EventController@judgeMarksheet')->name('events.judge.marksheet');
