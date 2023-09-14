@@ -1,9 +1,12 @@
 @extends('layouts.main')
 @section('styles')
 <style>
-    .btn {
+    .event-btn {
         font-size: 10px;
         font-weight: bold;
+        width: 80px;
+        height: 40px;
+        text-align: center;
     }
 </style>
 
@@ -66,26 +69,26 @@
                                             to publish this event?');" @endif>
                                             @csrf
                                             @if($event->is_published)
-                                            <button class="btn btn-warning">Hide</button>
+                                            <button class="btn event-btn btn-warning">Hide</button>
                                             @else
-                                            <button class="btn btn-success">Publish</button>
+                                            <button class="btn event-btn btn-success">Publish</button>
                                             @endif
                                         </form>&nbsp;
                                         <a href="{{ route('events.edit',$event->id) }}"
-                                            class="btn btn-primary">Edit</a>&nbsp;
+                                            class="btn event-btn btn-primary">Edit</a>&nbsp;
                                         @if (Auth::user()->role == "admin")
                                         <form action="{{ route('events.destroy',$event->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this event?');">
                                             @method('DELETE')
                                             @csrf
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button class="btn event-btn btn-danger">Delete</button>
                                         </form> &nbsp;
                                         @endif
                                         {{-- --}}
                                         <a href="{{ route('events.marksheet',$event->id) }}"
-                                            class="btn btn-success">Blank Marksheet</a>&nbsp;
+                                            class="btn event-btn btn-success">Blank Marksheet</a>&nbsp;
                                         <a href="{{ route('events.participant',$event->id) }}"
-                                            class="btn btn-primary">Participants</a>
+                                            class="btn event-btn btn-primary">Participants</a>
 
                                     </div>
                                 </td>
@@ -93,17 +96,16 @@
                                     <div class="d-flex">
                                         @if ($event->result_published)
                                         @if (Auth::user()->role == "admin")
-                                        <a href="{{ route('events.result-unpublish',$event->id) }}" class="btn btn-danger">Unpublish</a>&nbsp;
+                                        <a href="{{ route('events.result-unpublish',$event->id) }}" class="btn event-btn btn-danger">Unpublish</a>&nbsp;
                                         @endif
-                                        <a href="{{ route('events.result',$event->id) }}" class="btn btn-primary">Final
-                                            Marksheet</a> &nbsp;
-                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn btn-info">J
-                                            Marksheet</a> &nbsp;
+                                        <a href="{{ route('events.result',$event->id) }}" class="btn event-btn btn-primary">Final Result</a> &nbsp;
+                                        <a href="{{ route('events.judge.marksheet',$event) }}" class="btn event-btn btn-info">Final
+                                        Marksheet</a> &nbsp;
                                         @else
-                                        @if (Auth::user()->role == "admin")
+                                        {{-- @if (Auth::user()->role == "admin") --}}
                                         <a href="{{ route('events.result-publish',$event->id) }}"
-                                            class="btn btn-success">Publish</a>&nbsp;
-                                        @endif
+                                            class="btn event-btn btn-success">Publish</a>&nbsp;
+                                        {{-- @endif --}}
                                         @endif
                                     </div>
                                 </td>

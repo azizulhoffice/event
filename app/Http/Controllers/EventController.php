@@ -188,8 +188,7 @@ class EventController extends Controller
             ->groupBy('user_id')
             ->get();
         $participants = Participant::where('event_id', $event->id)
-            ->orderBy('id', 'asc')
-            ->orderBy('serial_no', 'asc')
+            ->orderBy('rank', 'asc')
             ->get();
         return view('admin.events.judge-marksheet', compact('participants', 'event', 'judges'));
     }
