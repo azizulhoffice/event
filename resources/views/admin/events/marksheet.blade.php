@@ -1,10 +1,6 @@
 @extends('layouts.main')
 @section('styles')
 <style>
-    /* .btn {
-        font-size: 15px;
-        font-weight: bold;
-    } */
 
     .card-title {
         font-size: 20px;
@@ -14,8 +10,6 @@
     @media print {
         @page {
             size: legal;
-            /* margin-left: 4cm;
-    margin-right: 4cm; */
         }
     }
 </style>
@@ -93,6 +87,9 @@
                         <p>বিচারকের স্বাক্ষর________________</p>
                         <p>তারিখ:________________</p>
                     </div>
+                    <div class="text-center">
+                        <small id="timestamp"></small>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -103,8 +100,10 @@
 @endSection
 @section('js')
 <script>
+    $("#timestamp").html(getFormatedTimeStamp());
     function print1() {
        let print_content = document.getElementById('result').innerHTML;
+       
        let original_content = document.body.innerHTML;
        document.body.innerHTML = print_content;
        window.print();

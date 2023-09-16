@@ -85,6 +85,7 @@
                         </tbody>
 
                     </table>
+                    <div class="text-center mt-4"><small id="timestamp"></small></div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -95,6 +96,7 @@
 @endSection
 @section('js')
 <script>
+    $("#timestamp").html(getFormatedTimeStamp());
     function print1() {
        let print_content = document.getElementById('result').innerHTML;
        let original_content = document.body.innerHTML;
