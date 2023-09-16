@@ -6,6 +6,7 @@ use App\Exports\SampleParticipantExport;
 use App\Imports\ParticipantsImport;
 use App\Models\Event;
 use App\Models\Participant;
+use App\Models\Score;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -72,8 +73,9 @@ class ParticipantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Participant $participant)
-    {
-        //
+    {   
+        $participant->load('event');
+        return view('admin.participants.edit', compact('participant'));
     }
 
     /**
@@ -85,7 +87,19 @@ class ParticipantController extends Controller
      */
     public function update(Request $request, Participant $participant)
     {
-        //
+        $validated = $request->validate([
+            "name_en" => "nullable|string",
+            "name_bn" => "nullable|string",
+            "email" => "nullable|email",
+            "phone" => "nullable|numeric",
+            "class" => "nullable",
+            "dob" => "nullable|string",
+            "inst_name" => "nullable|string",
+            "inst_address" => "nullable|string",
+        ]);
+        $participant->update($validated);
+
+        return redirect()->route('participants.index')->with('success',"Participant information updated.");
     }
 
     /**
@@ -96,8 +110,11 @@ class ParticipantController extends Controller
      */
     public function destroy(Participant $participant)
     {
-        //
+        Score::where('participant_id',$participant->id)->delete();
+        $participant->delete();
+        return redirect()->route('participants.index')->with('success',"Participant deleted.");
     }
+    
     public function importview()
     {
         $participants = Participant::all();
