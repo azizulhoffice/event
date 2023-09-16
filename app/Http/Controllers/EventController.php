@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Score;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -216,24 +217,68 @@ class EventController extends Controller
     public function bulkScore(Request $request)
     {
         $user = Auth::user();
-        if ($user->role == "event-manager") {
-            $events = Event::where('user_id', $user->id)->where('result_published',false)->get();
-        } else if ($user->role == "admin") {
-            $events = Event::where('result_published',false)->get();
-        } else {
-            abort(404);
-        }
+        $events = Event::when($user->role == "event-manager", function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->where('result_published', false)->get();
+
         $event = null;
-        if($request->has('event')){
-            $event = $events->where('id',$request->event)->first();
-            if($event != null){
-                $event->load('users','participants','allScores');
+        if ($request->has('event')) {
+            $event = $events->where('id', $request->event)->first();
+            if ($event != null) {
+                $event->load('users', 'participants', 'allScores');
             }
         }
-        return view('admin.bulk-score-update', compact('events','event'));
+        return view('admin.bulk-score-update', compact('events', 'event'));
     }
 
-    function bulkScoreUpdate(Request $request) {
-        dd($request->all());
+    function bulkScoreUpdate(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user = Auth::user();
+            $event = Event::where('id', $request->event_id)->when($user->role == "event-manager", function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })->where('result_published', false)->firstOrFail();
+            $event->load('participants');
+            $absents = $request->has('absent') ? $request->absent : [];
+            $scores = $request->has('score') ? $request->score : [];
+
+            // Delete already existing scores to remove duplicacy as this method will repopulate all scores
+            Score::where('event_id',$event->id)
+            ->whereIn('participant_id',$event->participants->pluck('id'))
+            ->delete();
+
+            $scoresToEnter = [];
+            foreach ($event->participants as $index => $p) {
+                foreach($scores as $judge => $score){
+                    if(array_key_exists($p->id, $absents)){
+                        // participant is absent
+                        $scoresToEnter[] = [
+                            "participant_id" => $p->id,
+                            "event_id" => $event->id,
+                            "score" => "0",
+                            "absent" => true,
+                            "user_id" => $judge,
+                        ];
+                    }else{
+                        // enter participant score
+                        $participantScore = $score[$index];
+                        $scoresToEnter[] = [
+                            "participant_id" => $p->id,
+                            "event_id" => $event->id,
+                            "score" => $participantScore,
+                            "absent" => false,
+                            "user_id" => $judge,
+                        ];
+                    }
+                }
+            }
+            Score::insert($scoresToEnter);
+            return redirect()->route('events.bulk-score')->with("success","Scores updated for $event->name");
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with("error",$e->getMessage());
+
+        }
     }
 }

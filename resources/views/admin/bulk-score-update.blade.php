@@ -20,12 +20,10 @@
 
 <!-- Main content -->
 <section class="content">
+    @include('flash-message')
     @if($event == null)
     <div class="row">
-        @include('flash-message')
-
         <div class="col-md-6">
-
             <div class="card">
                 <div class="card-header bg-warning">
                     <h3 class="card-title">Select Event</h3>
@@ -62,31 +60,35 @@
                     <form action="{{route('events.bulk-score.update')}}" method="POST">
                         @csrf
                         <input type="hidden" name="event_id" value="{{ $event->id }}">
-                    <table class="table table-striped table-bordered text-center">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Absent</th>
-                                @foreach($event->users as $judge)
-                                <th>{{ $judge->name }}</th>
+                        <table class="table table-striped table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Absent</th>
+                                    @foreach($event->users as $judge)
+                                    <th>{{ $judge->name }}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($event->participants as $p)
+                                @php
+                                    $scores = $event->allScores->where('participant_id',$p->id);
+                                    $isAbsent = $scores->where('absent', true)->count() > 0 ? true : false;
+                                @endphp
+                                <tr>
+                                    <td>{{ $p->serial_no }}</td>
+                                    <td>{{ $p->name_bn ?? $p->name_en }}</td>
+                                    <td><input type="checkbox" name="absent[{{ $p->id }}]" @if($isAbsent) checked="checked" @endif></td>
+                                    @foreach($event->users as $judge)
+                                    <th><input type="text" class="form-control" name="score[{{$judge->id}}][]" value="{{ $event->allScores->where('participant_id',$p->id)->where('user_id',$judge->id)->first()->score ?? '0' }}"></th>
+                                    @endforeach
+                                </tr>
                                 @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($event->participants as $p)
-                            <tr>
-                                <td>{{ $p->serial_no }}</td>
-                                <td>{{ $p->name_bn ?? $p->name_en }}</td>
-                                <td><input type="checkbox" name="absent[{{ $p->id }}]"></td>
-                                @foreach($event->users as $judge)
-                                <th><input type="text" class="form-control" name="score[{{$judge->id}}][]" value="{{ $event->allScores->where('participant_id',$p->id)->where('user_id',$judge->id)->first()->score ?? '0' }}"></th>
-                                @endforeach
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <button class="btn btn-md btn-success">Update</button>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-md btn-success">Update</button>
                     </form>
 
                 </div>
