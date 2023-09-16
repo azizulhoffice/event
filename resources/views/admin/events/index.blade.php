@@ -63,7 +63,7 @@
                             @foreach($events as $k => $event)
                             <tr>
                                 <th scope="row">{{ $k + 1 }}</th>
-                                <td>{{ $event->name }}</td>
+                                <td>{{ $event->name }} @if($event->event_dateTime != null) <br> <small class="text-muted">{{ $event->event_dateTime->format('d/m/Y h:i A') }}</small> @endif</td>
                                 <td>{{ $event->description }}</td>
                                 <td>
                                     @foreach($event->users as $judge)

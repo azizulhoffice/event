@@ -37,6 +37,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="event_dateTime">Event Time & Date:</label>
+                            <input type="datetime-local" value="{{ $event->event_dateTime }}" class="form-control" id="event_dateTime" name="event_dateTime" placeholder="Enter event Time and Date" required>
+                            @error('event_dateTime')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="eventDescription">Event Description:</label>
                             <textarea class="form-control" id="description" value="{{ $event->description }}" name="description" rows="4" placeholder="Enter event description"></textarea>
                             @error('description')

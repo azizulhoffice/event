@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Score;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,11 +50,13 @@ class EventController extends Controller
             'name' => 'required|string|unique:events,name',
             'description' => 'nullable|string',
             'judges' => 'array',
+            "event_dateTime" => "required|date_format:Y-m-d\TH:i"
         ]);
 
         $event = Event::create([
             'name' => $request->name,
             'description' => $request->description,
+            'event_dateTime' => $request->event_dateTime,
         ]);
         $event->users()->sync($request->judges);
         return redirect()->route('events.index')->with('success', 'Event Created Successfully!');
@@ -88,11 +91,13 @@ class EventController extends Controller
             'name' => 'required|string|unique:events,name,' . $id,
             'description' => 'nullable|string',
             'judges' => 'required|array',
+            "event_dateTime" => "required|date_format:Y-m-d\TH:i"
         ]);
         $event = Event::find($id);
         $event->update([
             'name' => $request->name,
             'description' => $request->description,
+            'event_dateTime' => $request->event_dateTime,
         ]);
         $event->users()->sync($request->judges);
         return redirect()->route('events.index')->with('success', 'Event Updated Successfully!');
