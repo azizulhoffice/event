@@ -50,12 +50,14 @@ class EventController extends Controller
             'name' => 'required|string|unique:events,name',
             'description' => 'nullable|string',
             'judges' => 'array',
+            'last_position' => 'integer',
             "event_dateTime" => "required|date_format:Y-m-d\TH:i"
         ]);
 
         $event = Event::create([
             'name' => $request->name,
             'description' => $request->description,
+            'last_position' => $request->last_position,
             'event_dateTime' => $request->event_dateTime,
         ]);
         $event->users()->sync($request->judges);
@@ -91,12 +93,14 @@ class EventController extends Controller
             'name' => 'required|string|unique:events,name,' . $id,
             'description' => 'nullable|string',
             'judges' => 'required|array',
+            'last_position' => 'required|integer',
             "event_dateTime" => "required|date_format:Y-m-d\TH:i"
         ]);
         $event = Event::find($id);
         $event->update([
             'name' => $request->name,
             'description' => $request->description,
+            'last_position' => $request->last_position,
             'event_dateTime' => $request->event_dateTime,
         ]);
         $event->users()->sync($request->judges);
@@ -182,7 +186,9 @@ class EventController extends Controller
     public function result($id)
     {
         $event = Event::find($id);
-        $participants = Participant::where('event_id', $id)->where('total_earn_score','>',0)
+        $participants = Participant::where('event_id', $id)
+            ->where('total_earn_score','>',0)
+            ->where('rank', '<=', $event->last_position)
             ->orderBy('total_earn_score', 'desc')
             ->orderBy('rank', 'asc')
             ->get();

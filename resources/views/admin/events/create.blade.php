@@ -43,6 +43,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="eventName">Last Position</label>
+                            <input type="number" value="{{ old('last_position') }}" title="Price will be given this Position pariticipant" class="form-control" id="last_position" name="last_position"
+                                placeholder="Enter a rank number" required>
+                            @error('last_position')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="eventDescription">Event Description:</label>
                             <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter event description">{{ old('description') }}</textarea>
                             @error('description')
