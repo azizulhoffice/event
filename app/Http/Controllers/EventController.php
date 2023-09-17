@@ -229,7 +229,9 @@ class EventController extends Controller
     {
         $user = Auth::user();
         $events = Event::when($user->role == "event-manager", function ($q) use ($user) {
-            $q->where('user_id', $user->id);
+            $q->whereHas('users', function ($q2) use ($user) {
+                $q2->where('user_id', $user->id);
+            });
         })->where('result_published', false)->get();
 
         $event = null;
