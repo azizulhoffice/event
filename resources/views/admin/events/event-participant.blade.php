@@ -6,30 +6,27 @@
         font-weight: bold;
     }
 
-    .card-title {
+    /* .card-title {
         font-size: 20px;
         font-weight: bold;
+    } */
+
+    .header th {
+        /* border-color: white !important; */
+        border-style: solid !important;
+        border-top-color: #fff !important;
+        border-left-color: #fff !important;
+        border-right-color: #fff !important;
+        padding-bottom: 30px !important;
     }
 
     @media print {
-
-        .header th{
-            /* border-color: white !important; */
-            border-style: solid !important;
-            border-top-color: #fff !important;
-            border-left-color: #fff !important;
-            border-right-color: #fff !important;
-            padding-bottom: 30px !important;
-        }
-        .info-heading {
-            position: fixed;
-            top: 0;
-        }
 
         .timestamp {
             position: fixed;
             bottom: 0;
         }
+
         .timestamp small {
             text-align: center !important;
         }
@@ -68,8 +65,7 @@
     <div class="row">
         <div class="col-md-12">
             {{-- @include('flash-message') --}}
-            <div class="card page-break">
-
+            <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="" class="table table-bordered text-center">
@@ -77,13 +73,24 @@
                             <tr class="header">
                                 <th colspan="4">
                                     <div class="d-flex justify-content-center">
-                                        <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px" alt="">
-                                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক <br>
+                                        <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px"
+                                            alt="">
+                                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ
+                                            বাংলাদেশ কর্তৃক <br>
                                             পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
                                             প্রতিযোগীদের নামের তালিকা</h1>
+                                    </div> <br>
+                                    <div class="row">
+                                        <h2 class="col-6 card-title text-left"
+                                            style="font-size: 16px;font-weight:bold;">বিষয়:
+                                            {{ $event->name
+                                            }}</h2>
+                                        <h2 class="col-6 card-title text-right"
+                                            style="font-size: 16px;font-weight:bold;">তারিখ:
+                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y H:i
+                                            A')
+                                            }}</h2>
                                     </div>
-                                    <h2 class="card-title text-center" style="font-size: 16px;font-weight:bold;">বিষয়: {{ $event->name
-                        }}</h2>
                                 </th>
                             </tr>
                             <tr>

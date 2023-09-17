@@ -10,12 +10,31 @@
         font-size: 20px;
         font-weight: bold;
     }
-    @media print {
-    @page {
-    size: legal;
-    /* margin-left: 4cm;
-    margin-right: 4cm; */
+
+    .header th {
+        /* border-color: white !important; */
+        border-style: solid !important;
+        border-top-color: #fff !important;
+        border-left-color: #fff !important;
+        border-right-color: #fff !important;
+        padding-bottom: 30px !important;
     }
+
+    @media print {
+        .timestamp {
+            position: fixed;
+            bottom: 0;
+        }
+
+        .timestamp small {
+            text-align: center !important;
+        }
+
+        @page {
+            size: legal;
+            /* margin-left: 4cm;
+    margin-right: 4cm; */
+        }
     }
 </style>
 
@@ -44,19 +63,33 @@
         <div class="col-md-12">
             {{-- @include('flash-message') --}}
             <div class="card">
-                <div class="card-header text-center">
-                    <div class="d-flex justify-content-center">
-                        <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px" alt="">
-                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক <br>
-                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
-                            চূড়ান্ত ফলাফল শীট</h1>
-                    </div>
-                    <h2 class="card-title text-center" style="font-size: 16px;font-weight:bold;">বিষয়: {{ $event->name }}</h2>
-                </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="" class="table table-bordered table-striped text-center">
                         <thead>
+                            <tr class="header">
+                                <th colspan="4">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px"
+                                            alt="">
+                                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ
+                                            বাংলাদেশ কর্তৃক <br>
+                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
+                                            চূড়ান্ত ফলাফল শীট</h1>
+                                    </div> <br>
+                                    <div class="row">
+                                        <h2 class="col-6 card-title text-left"
+                                            style="font-size: 16px;font-weight:bold;">বিষয়:
+                                            {{ $event->name
+                                            }}</h2>
+                                        <h2 class="col-6 card-title text-right"
+                                            style="font-size: 16px;font-weight:bold;">তারিখ:
+                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y H:i
+                                            A')
+                                            }}</h2>
+                                    </div>
+                                </th>
+                            </tr>
                             <tr>
                                 <th>ক্রমিক নং</th>
                                 <th>প্রতিযোগীর নাম</th>
@@ -74,7 +107,9 @@
                                 <td>{{ $participant->name_bn??$participant->name_bn }}</td>
                                 {{-- <td>{{ $participant->class }}</td> --}}
                                 {{-- <td>{{ $participant->inst_name }}</td> --}}
-                                <td>{{ $participant->scores->first()->absent?'A':removeTrailingZeros($participant->total_earn_score)??'' }}</td>
+                                <td>{{
+                                    $participant->scores->first()->absent?'A':removeTrailingZeros($participant->total_earn_score)??''
+                                    }}</td>
                                 <td>{{ $participant->scores->first()->absent?'A':$participant->rank??'' }}</td>
                             </tr>
                             @empty
@@ -85,7 +120,7 @@
                         </tbody>
 
                     </table>
-                    <div class="text-center mt-4"><small id="timestamp"></small></div>
+                    <div class="text-center mt-4 timestamp"><small id="timestamp"></small></div>
                 </div>
                 <!-- /.card-body -->
             </div>

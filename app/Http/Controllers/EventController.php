@@ -216,7 +216,7 @@ class EventController extends Controller
             ->orderBy('id', 'asc')
             ->orderBy('serial_no', 'asc')
             ->get();
-        return view('admin.events.marksheet', compact('participants', 'event'));
+        return view('admin.events.blank-marksheet', compact('participants', 'event'));
     }
 
     public function bulkScore(Request $request)
