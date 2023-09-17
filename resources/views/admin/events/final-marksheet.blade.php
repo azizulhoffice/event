@@ -74,8 +74,8 @@
                                 <td>{{ $participant->name_bn??$participant->name_bn }}</td>
                                 {{-- <td>{{ $participant->class }}</td> --}}
                                 {{-- <td>{{ $participant->inst_name }}</td> --}}
-                                <td>{{ $participant->total_earn_score??'Absent' }}</td>
-                                <td>{{ $participant->rank??'Absent' }}</td>
+                                <td>{{ $participant->scores->first()->absent?'A':removeTrailingZeros($participant->total_earn_score)??'' }}</td>
+                                <td>{{ $participant->scores->first()->absent?'A':$participant->rank??'' }}</td>
                             </tr>
                             @empty
                             <tr>

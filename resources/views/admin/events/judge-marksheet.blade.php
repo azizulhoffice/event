@@ -79,12 +79,12 @@
                                 <td>{{ $participant->serial_no }}</td>
                                 <td>{{ $participant->name_bn??$participant->name_bn }}</td>
                                 @forelse($judges as $judge)
-                                <td>{{ $participant->scores->where('user_id',$judge->user_id)->first()->score ?? "N/A" }}</td>
+                                <td>{{$participant->scores->where('user_id',$judge->user_id)->first()->absent?'A':removeTrailingZeros($participant->scores->where('user_id',$judge->user_id)->first()->score) ?? "N/A" }}</td>
                                 @empty
                                 <td></td>
                                 @endforelse
-                                <td>{{ $participant->total_earn_score }}</td>
-                                <td>{{ $participant->rank }}</td>
+                                <td>{{ $participant->scores->first()->absent?'A':removeTrailingZeros($participant->total_earn_score) }}</td>
+                                <td>{{ $participant->scores->first()->absent?'A':$participant->rank }}</td>
                             </tr>
                             @empty
                             <tr>

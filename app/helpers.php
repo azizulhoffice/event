@@ -16,3 +16,14 @@ function isPublished($event_id)
     ->get();
    return count($participant_scores) > 0? true : false;
 }
+function removeTrailingZeros($number)
+{
+    // Remove trailing zeros after the decimal point
+    $number = rtrim($number, '0');
+     // If the last character is a decimal point, remove it
+    if (substr($number, -1) === '.') {
+        $number = substr($number, 0, -1);
+    }
+
+    return $number;
+}

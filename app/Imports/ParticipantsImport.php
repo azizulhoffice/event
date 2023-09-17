@@ -29,6 +29,8 @@ class ParticipantsImport implements ToModel, WithHeadingRow
                 'email' => $row['email'] ?? "Null",
                 'phone' => $this->addLeadingZeroIfNeeded((string) $row['phone']),
             ];
+            if (($row['bangla_name'] == null && $row['name'] == null)|| ($row['bangla_name'] == ' ' && $row['name'] == ' '))
+                return;
             Participant::create($data);
         }
     }

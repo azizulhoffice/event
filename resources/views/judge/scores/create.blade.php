@@ -199,7 +199,7 @@
                                 <td>${participant.serial_no}</td>
                                 <td>${participant.name_bn ?? participant.name_en}</td>
                                 <td class="jsutify-content-center">
-                                    <input type="number" oninput="removeLeadingZero(this)" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="${participant.score.score??'0.00'}">
+                                    <input type="number" oninput="removeLeadingZero(this)" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="${removeTrailingZeros(participant.score.score)??''}">
                                 </td>
                                 <td>
                                     <button id="remark" data-scoreID="${participant.score.id}" disabled name="update-${participant.score.id}" class="btn btn-sm btn-warning update">
@@ -225,7 +225,7 @@
                         <td>
                             Absent
                         </td>
-                        <td><input type="number" oninput="removeLeadingZero(this)" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value="0.00"></td>
+                        <td><input type="number" oninput="removeLeadingZero(this)" required name="updatescore-${participant.score.id}" disabled class="updatescore btn" value=""></td>
                         <td>
                             <button id="remark" data-scoreID="${participant.score.id}" disabled name="update-${participant.score.id}" class="btn btn-sm btn-warning update">
                                 Update
@@ -333,6 +333,18 @@
                 }
             });
         });
+
+        function removeTrailingZeros(number) {
+        // Remove trailing zeros after the decimal point
+        number = number.replace(/0+$/, '');
+
+        // If the last character is a decimal point, remove it
+        if (number.slice(-1) === '.') {
+        number = number.slice(0, -1);
+        }
+
+        return number;
+        }
 
     });
 </script>
