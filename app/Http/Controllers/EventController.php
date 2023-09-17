@@ -279,6 +279,7 @@ class EventController extends Controller
                 }
             }
             Score::insert($scoresToEnter);
+            DB::commit();
             return redirect()->route('events.bulk-score')->with("success","Scores updated for $event->name");
         } catch (Exception $e) {
             DB::rollBack();

@@ -12,13 +12,32 @@
     }
 
     @media print {
-        .info-heading {
-        position: fixed;
-        top: 0;
+
+        .header th{
+            /* border-color: white !important; */
+            border-style: solid !important;
+            border-top-color: #fff !important;
+            border-left-color: #fff !important;
+            border-right-color: #fff !important;
+            padding-bottom: 30px !important;
         }
+        .info-heading {
+            position: fixed;
+            top: 0;
+        }
+
+        .timestamp {
+            position: fixed;
+            bottom: 0;
+        }
+        .timestamp small {
+            text-align: center !important;
+        }
+
         .card-body {
             page-break-after: always;
         }
+
         @page {
             size: legal;
         }
@@ -50,20 +69,23 @@
         <div class="col-md-12">
             {{-- @include('flash-message') --}}
             <div class="card page-break">
-                <div class="card-header text-center info-heading">
-                    <div class="d-flex justify-content-center">
-                        <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px" alt="">
-                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক <br>
-                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
-                            প্রতিযোগীদের নামের তালিকা</h1>
-                    </div>
-                    <h2 class="card-title text-center" style="font-size: 16px;font-weight:bold;">বিষয়: {{ $event->name
-                        }}</h2>
-                </div>
+                
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="" class="table table-bordered text-center">
                         <thead>
+                            <tr class="header">
+                                <th colspan="4">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px" alt="">
+                                        <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ বাংলাদেশ কর্তৃক <br>
+                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
+                                            প্রতিযোগীদের নামের তালিকা</h1>
+                                    </div>
+                                    <h2 class="card-title text-center" style="font-size: 16px;font-weight:bold;">বিষয়: {{ $event->name
+                        }}</h2>
+                                </th>
+                            </tr>
                             <tr>
                                 <th>ক্রমিক নং</th>
                                 <th>প্রতিযোগীর নাম</th>
@@ -93,7 +115,7 @@
 
                     </table>
 
-                    <div class="text-center mt-4"><small id="timestamp"></small></div>
+                    <div class="text-center mt-4 timestamp"><small id="timestamp"></small></div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -105,12 +127,13 @@
 @section('js')
 <script>
     $("#timestamp").html(getFormatedTimeStamp());
+
     function print1() {
-       let print_content = document.getElementById('result').innerHTML;
-       let original_content = document.body.innerHTML;
-       document.body.innerHTML = print_content;
-       window.print();
-       document.body.innerHTML = original_content;
+        let print_content = document.getElementById('result').innerHTML;
+        let original_content = document.body.innerHTML;
+        document.body.innerHTML = print_content;
+        window.print();
+        document.body.innerHTML = original_content;
     }
 </script>
 @endsection
