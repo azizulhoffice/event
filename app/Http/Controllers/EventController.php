@@ -182,7 +182,7 @@ class EventController extends Controller
     public function result($id)
     {
         $event = Event::find($id);
-        $participants = Participant::where('event_id', $id)
+        $participants = Participant::where('event_id', $id)->where('total_earn_score','>',0)
             ->orderBy('total_earn_score', 'desc')
             ->orderBy('rank', 'asc')
             ->get();
