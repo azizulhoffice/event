@@ -326,6 +326,7 @@
                 },
                 data: data,
                 success: function(response) {
+                    $("#absent_" + scoreId).remove();
                     getData();
                 },
                 error: function(error) {
