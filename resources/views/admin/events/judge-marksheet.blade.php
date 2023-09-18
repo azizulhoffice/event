@@ -109,8 +109,13 @@
                                 <td>{{ $participant->serial_no }}</td>
                                 <td>{{ $participant->name_bn??$participant->name_bn }}</td>
                                 @forelse($judges as $judge)
+                                @if ($participant->scores->where('user_id',$judge->user_id)->first())
                                 <td>{{$participant->scores->where('user_id',$judge->user_id)->first()->absent?'A':removeTrailingZeros($participant->scores->where('user_id',$judge->user_id)->first()->score)
                                     ?? "N/A" }}</td>
+                                @else
+                                <td></td>
+                                @endif
+
                                 @empty
                                 <td></td>
                                 @endforelse

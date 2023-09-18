@@ -162,12 +162,12 @@ class EventController extends Controller
                 'avg_score' => number_format($score->avg_score, 2),
                 'rank'  => $rank,
             ]);
-            $data[] = [
-                'id' => $score->participant_id,
-                'total_earn_score' => $score->total_score,
-                'avg_score' => $score->avg_score,
-                'rank'  => $rank,
-            ];
+            // $data[] = [
+            //     'id' => $score->participant_id,
+            //     'total_earn_score' => $score->total_score,
+            //     'avg_score' => $score->avg_score,
+            //     'rank'  => $rank,
+            // ];
             $i++;
             $prev_score = $score->total_score;
         }
@@ -203,7 +203,7 @@ class EventController extends Controller
             ->groupBy('user_id')
             ->get();
         $participants = Participant::where('event_id', $event->id)
-            ->orderBy('rank', 'asc')
+            ->orderBy('serial_no', 'asc')
             ->get();
         return view('admin.events.judge-marksheet', compact('participants', 'event', 'judges'));
     }

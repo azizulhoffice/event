@@ -118,7 +118,7 @@
                         <p>বিচারকের স্বাক্ষর________________</p>
                         <p>তারিখ:________________</p>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center timestamp">
                         <small id="timestamp"></small>
                     </div>
                 </div>

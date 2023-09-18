@@ -74,15 +74,18 @@
                             <tbody>
                                 @foreach($event->participants as $p)
                                 @php
-                                    $scores = $event->allScores->where('participant_id',$p->id);
-                                    $isAbsent = $scores->where('absent', true)->count() > 0 ? true : false;
+                                $scores = $event->allScores->where('participant_id',$p->id);
+                                $isAbsent = $scores->where('absent', true)->count() > 0 ? true : false;
                                 @endphp
                                 <tr>
                                     <td>{{ $p->serial_no }}</td>
                                     <td>{{ $p->name_bn ?? $p->name_en }}</td>
-                                    <td><input type="checkbox" name="absent[{{ $p->id }}]" @if($isAbsent) checked="checked" @endif></td>
+                                    <td><input type="checkbox" name="absent[{{ $p->id }}]" @if($isAbsent)
+                                            checked="checked" @endif></td>
                                     @foreach($event->users as $judge)
-                                    <th><input type="text" class="form-control" name="score[{{$judge->id}}][]" value="{{ removeTrailingZeros($event->allScores->where('participant_id',$p->id)->where('user_id',$judge->id)->first()->score ?? '')  }}"></th>
+                                    <th><input type="number" class="form-control" name="score[{{$judge->id}}][]"
+                                            value="{{ removeTrailingZeros($event->allScores->where('participant_id',$p->id)->where('user_id',$judge->id)->first()->score ?? '')  }}">
+                                    </th>
                                     @endforeach
                                 </tr>
                                 @endforeach
@@ -100,3 +103,15 @@
 </section>
 <!-- /.content -->
 @stop
+@section('js')
+<script>
+    $("input").keypress(function(e) {
+    if (e.which == 13) {
+    var index = $("input[type='number']").index(this);
+    $("input[type='number']").eq(index + 3).focus();
+    e.preventDefault();
+    }
+    });
+</script>
+
+@endsection
