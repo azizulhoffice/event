@@ -115,6 +115,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
+        Participant::where('event_id', $id)->delete();
         $event = Event::where('id', $id)->delete();
         return redirect()->back();
     }

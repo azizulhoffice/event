@@ -57,7 +57,7 @@
                                     <td>{{ $startNumber++ }}</td>
                                     <td>{{ $participant->serial_no }}</td>
                                     <td>{{ $participant->name_bn??$participant->name_en }}</td>
-                                    <td>{{ $participant->event->name }}</td>
+                                    <td>{{ $participant->event->name??'' }}</td>
                                     <td>{{ $participant->class }}</td>
                                     <td>{{ $participant->inst_name }}</td>
                                     <td> {{ $participant->inst_address }}</td>
