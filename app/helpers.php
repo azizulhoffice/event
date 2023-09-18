@@ -18,6 +18,8 @@ function isPublished($event_id)
 }
 function removeTrailingZeros($number)
 {
+    if ($number == null || $number == '')
+        return null;
     // Remove trailing zeros after the decimal point
     $number = rtrim($number, '0');
      // If the last character is a decimal point, remove it

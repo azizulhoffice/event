@@ -82,7 +82,7 @@
                                     <td>{{ $p->name_bn ?? $p->name_en }}</td>
                                     <td><input type="checkbox" name="absent[{{ $p->id }}]" @if($isAbsent) checked="checked" @endif></td>
                                     @foreach($event->users as $judge)
-                                    <th><input type="text" class="form-control" name="score[{{$judge->id}}][]" value="{{ $event->allScores->where('participant_id',$p->id)->where('user_id',$judge->id)->first()->score ?? '0' }}"></th>
+                                    <th><input type="text" class="form-control" name="score[{{$judge->id}}][]" value="{{ removeTrailingZeros($event->allScores->where('participant_id',$p->id)->where('user_id',$judge->id)->first()->score ?? '')  }}"></th>
                                     @endforeach
                                 </tr>
                                 @endforeach

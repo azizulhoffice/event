@@ -276,13 +276,16 @@ class EventController extends Controller
                     }else{
                         // enter participant score
                         $participantScore = $score[$index];
-                        $scoresToEnter[] = [
-                            "participant_id" => $p->id,
-                            "event_id" => $event->id,
-                            "score" => $participantScore,
-                            "absent" => false,
-                            "user_id" => $judge,
-                        ];
+                        if($participantScore != null){
+                            $scoresToEnter[] = [
+                                "participant_id" => $p->id,
+                                "event_id" => $event->id,
+                                "score" => $participantScore,
+                                "absent" => false,
+                                "user_id" => $judge,
+                            ];
+                        }
+
                     }
                 }
             }
