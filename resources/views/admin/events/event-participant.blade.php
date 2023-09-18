@@ -122,7 +122,7 @@
 
                     </table>
 
-                    <div class="text-center mt-4 timestamp"><small id="timestamp"></small></div>
+                   <div class="text-center timestamp">Printed on <small id="timestamp"></small>. Powered by Marsa Technologies.
                 </div>
                 <!-- /.card-body -->
             </div>

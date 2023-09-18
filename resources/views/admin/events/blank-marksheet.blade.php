@@ -118,8 +118,7 @@
                         <p>বিচারকের স্বাক্ষর________________</p>
                         <p>তারিখ:________________</p>
                     </div>
-                    <div class="text-center timestamp">
-                        <small id="timestamp"></small>
+                    <div class="text-center timestamp">Printed on <small id="timestamp"></small>. Powered by Marsa Technologies.
                     </div>
                 </div>
                 <!-- /.card-body -->
