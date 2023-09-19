@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', str_replace(' ', '_', $event->name).'_Patipant_List')
 @section('styles')
 <style>
     .btn {
@@ -122,8 +123,8 @@
 
                     </table>
 
-                   <div class="text-center timestamp">Printed on <small id="timestamp"></small>. Powered by Marsa Technologies.
-                </div>
+                   <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp" style="font-size: 14px;"></small>. Powered by Marsa Technologies.
+                    </div>
                 <!-- /.card-body -->
             </div>
         </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Event | Dashboard</title>
+    <title>Event_ @yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Tell the browser to be responsive to screen width -->

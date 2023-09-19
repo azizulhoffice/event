@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', str_replace(' ', '_', $event->name).'_Blank_Marksheet')
 @section('styles')
 <style>
     .card-title {
@@ -19,6 +20,11 @@
         .timestamp {
             position: fixed;
             bottom: 0;
+        }
+        td {
+            padding: 0px !important;
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .timestamp small {
@@ -118,7 +124,7 @@
                         <p>বিচারকের স্বাক্ষর________________</p>
                         <p>তারিখ:________________</p>
                     </div>
-                    <div class="text-center timestamp">Printed on <small id="timestamp"></small>. Powered by Marsa Technologies.
+                    <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp" style="font-size: 14px;"></small>. Powered by Marsa Technologies.
                     </div>
                 </div>
                 <!-- /.card-body -->
