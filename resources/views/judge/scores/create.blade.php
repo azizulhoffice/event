@@ -29,10 +29,11 @@
         font-weight: bold;
         /* text-align: center; */
     }
+
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+        -webkit-appearance: none;
+        margin: 0;
     }
 </style>
 
@@ -91,7 +92,8 @@
                                                 9
                                             </td>
                                             <td>
-                                                <button id="remark" data-participantID="" class="btn btn-sm btn-warning">
+                                                <button id="remark" data-participantID=""
+                                                    class="btn btn-sm btn-warning">
                                                     Delete Current Score
                                                 </button>
                                             </td>
@@ -133,7 +135,8 @@
                                             <td>Some Name</td>
                                             <td></td>
                                             <td>
-                                                <button id="remark" data-participantID="" class="btn btn-sm btn-success">
+                                                <button id="remark" data-participantID=""
+                                                    class="btn btn-sm btn-success">
                                                     Mark Present
                                                 </button>
                                             </td>
@@ -152,7 +155,6 @@
 @endsection
 @section('js')
 <script>
-
     function removeLeadingZero(input) {
     // Get the input value
     let value = input.value;
@@ -265,9 +267,11 @@
                 success: function(response) {
                     $("#unmark_" + participantId).remove();
                     getData();
+                    toastr.warning('Participant absent inserted!')
                 },
                 error: function(error) {
                     console.error("Error:", error);
+                    toastr.error('Something went wrong!!!');
                 }
             });
         });
@@ -293,9 +297,11 @@
                 success: function(response) {
                     $("#unmark_" + participantId).remove();
                     getData();
+                    toastr.success('Score added successfully!');
                 },
                 error: function(error) {
                     console.error("Error:", error);
+                    toastr.error('Something went wrong!!!')
                 }
             });
         });
@@ -328,9 +334,11 @@
                 success: function(response) {
                     $("#absent_" + scoreId).remove();
                     getData();
+                    toastr.success('Score updated successfully!')
                 },
                 error: function(error) {
                     console.error("Error:", error);
+                    toastr.error('Something went wrong!!!')
                 }
             });
         });
@@ -346,7 +354,23 @@
 
         return number;
         }
-
+        toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
     });
 </script>
 @endsection

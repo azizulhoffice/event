@@ -33,10 +33,12 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/font-awesome.min.css">
-
+    {{-- toaster maessage --}}
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    {{--<link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">--}}
+    {{--
+    <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">--}}
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <style>
@@ -111,6 +113,8 @@
     <script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
     <!-- overlayScrollbars -->
     <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+
+    <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
     <!-- FastClick -->
     <script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
     <!-- DataTables -->

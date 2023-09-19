@@ -105,13 +105,16 @@
 @stop
 @section('js')
 <script>
-    $("input").keypress(function(e) {
-    if (e.which == 13) {
-    var index = $("input[type='number']").index(this);
-    $("input[type='number']").eq(index + 3).focus();
-    e.preventDefault();
-    }
-    });
+    @if ($event != null)
+       let judges = {{ $event->users->count()}};
+       $("input").keypress(function(e) {
+       if (e.which == 13) {
+       var index = $("input[type='number']").index(this);
+       $("input[type='number']").eq(index + judges).focus();
+       e.preventDefault();
+        }
+      });
+    @endif
 </script>
 
 @endsection

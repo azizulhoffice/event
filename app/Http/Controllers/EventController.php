@@ -188,7 +188,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $participants = Participant::where('event_id', $id)
-            ->where('total_earn_score','>',0)
+            ->where('total_earn_score', '>', 0)
             ->where('rank', '<=', $event->last_position)
             ->orderBy('total_earn_score', 'desc')
             ->orderBy('rank', 'asc')
@@ -258,14 +258,14 @@ class EventController extends Controller
             $scores = $request->has('score') ? $request->score : [];
 
             // Delete already existing scores to remove duplicacy as this method will repopulate all scores
-            Score::where('event_id',$event->id)
-            ->whereIn('participant_id',$event->participants->pluck('id'))
-            ->delete();
+            Score::where('event_id', $event->id)
+                ->whereIn('participant_id', $event->participants->pluck('id'))
+                ->delete();
 
             $scoresToEnter = [];
             foreach ($event->participants as $index => $p) {
-                foreach($scores as $judge => $score){
-                    if(array_key_exists($p->id, $absents)){
+                foreach ($scores as $judge => $score) {
+                    if (array_key_exists($p->id, $absents)) {
                         // participant is absent
                         $scoresToEnter[] = [
                             "participant_id" => $p->id,
@@ -274,10 +274,10 @@ class EventController extends Controller
                             "absent" => true,
                             "user_id" => $judge,
                         ];
-                    }else{
+                    } else {
                         // enter participant score
                         $participantScore = $score[$index];
-                        if($participantScore != null){
+                        if ($participantScore != null) {
                             $scoresToEnter[] = [
                                 "participant_id" => $p->id,
                                 "event_id" => $event->id,
@@ -286,17 +286,15 @@ class EventController extends Controller
                                 "user_id" => $judge,
                             ];
                         }
-
                     }
                 }
             }
             Score::insert($scoresToEnter);
             DB::commit();
-            return redirect()->route('events.bulk-score')->with("success","Scores updated for $event->name");
+            return redirect()->route('events.bulk-score')->with("success", "Scores updated for $event->name");
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with("error",$e->getMessage());
-
+            return redirect()->back()->with("error", $e->getMessage());
         }
     }
 }

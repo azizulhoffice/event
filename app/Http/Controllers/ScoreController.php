@@ -35,19 +35,31 @@ class ScoreController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request,[
+        $this->validate($request, [
             'participant_id' => 'required|integer',
             'event_id' => 'integer',
             'score' => 'required|numeric',
             'user_id' => 'required|integer', //User=>role is judge
         ]);
-        $score =  Score::create($request->all());
+
+        //check if score already exists
+        $score_exist = Score::where('participant_id', $request->participant_id)
+            ->where('event_id', $request->event_id)
+            ->where('user_id', $request->user_id)
+            ->exists();
+        if ($score_exist) {
+            return response()->json([
+                'data' => '',
+                'success' => true,
+                'message' => 'Score Already Exists'
+            ]);
+        }
+        $score = Score::create($request->all());
         return response()->json([
             'data' => $score,
             'success' => true,
             'message' => 'Score created successfully'
         ]);
-
     }
 
     /**
@@ -79,7 +91,7 @@ class ScoreController extends Controller
      * @param  \App\Models\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'score' => 'required|numeric', //User=>role is judge
@@ -103,12 +115,12 @@ class ScoreController extends Controller
      */
     public function destroy($id)
     {
-         $score = Score::find($id);
+        $score = Score::find($id);
         $score->delete();
         return response()->json([
             'success' => true,
             'message' => 'Score deleted successfully',
-            'data'=>$score,
+            'data' => $score,
         ]);
     }
     public function absentStore(Request $request)
@@ -119,9 +131,21 @@ class ScoreController extends Controller
             'absent' => 'required|boolean',
             'user_id' => 'required|integer', //User=>role is judge
         ]);
+        $score_exist = Score::where('participant_id', $request->participant_id)
+            ->where('event_id', $request->event_id)
+            ->where('user_id', $request->user_id)
+            ->exists();
+        if ($score_exist) {
+            return response()->json([
+                'data' => '',
+                'success' => true,
+                'message' => 'Score Already Exists'
+            ]);
+        }
+
         $score =  Score::create($request->all());
         return response()->json([
-            'data'=>$score,
+            'data' => $score,
             'success' => true,
             'message' => 'Score created successfully'
         ]);
