@@ -21,14 +21,21 @@
             position: fixed;
             bottom: 0;
         }
+
         td {
-            padding: 0px !important;
-            font-weight: bold;
-            font-size: 16px;
+            font-size: 18px !important;
         }
 
         .timestamp small {
             text-align: center !important;
+        }
+
+        .p-heading th {
+            font-size: 22px !important;
+        }
+
+        td {
+            font-size: 22px !important;
         }
 
         @page {
@@ -73,7 +80,8 @@
                                             alt="">
                                         <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ
                                             বাংলাদেশ কর্তৃক <br>
-                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
+                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩
+                                            <br><br>
                                             মার্কশীট</h1>
                                     </div> <br>
                                     <div class="row">
@@ -89,7 +97,7 @@
                                     </div>
                                 </th>
                             </tr>
-                            <tr>
+                            <tr class="p-heading">
                                 <th>ক্রমিক নং</th>
                                 <th>প্রতিযোগীর নাম</th>
                                 {{-- <th>শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th> --}}
@@ -124,7 +132,8 @@
                         <p>বিচারকের স্বাক্ষর________________</p>
                         <p>তারিখ:________________</p>
                     </div>
-                    <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp" style="font-size: 14px;"></small>. Powered by Marsa Technologies.
+                    <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp"
+                            style="font-size: 14px;"></small>. Powered by Marsa Technologies.
                     </div>
                 </div>
                 <!-- /.card-body -->

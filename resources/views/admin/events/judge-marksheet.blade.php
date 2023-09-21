@@ -31,6 +31,14 @@
             text-align: center !important;
         }
 
+        .p-heading th {
+            font-size: 22px !important;
+        }
+
+        td {
+            font-size: 22px !important;
+        }
+
         @page {
             size: legal;
         }
@@ -73,23 +81,24 @@
                                             alt="">
                                         <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ
                                             বাংলাদেশ কর্তৃক <br>
-                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
+                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩
+                                            <br><br>
                                             বিচারক মার্কশীট</h1>
                                     </div> <br>
                                     <div class="row">
                                         <h2 class="col-6 card-title text-left"
-                                            style="font-size: 16px;font-weight:bold;">বিষয়:
+                                            style="font-size: 18px;font-weight:bold;">বিষয়:
                                             {{ $event->name
                                             }}</h2>
                                         <h2 class="col-6 card-title text-right"
-                                            style="font-size: 16px;font-weight:bold;">তারিখ:
+                                            style="font-size: 18px;font-weight:bold;">তারিখ:
                                             {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y H:i
                                             A')
                                             }}</h2>
                                     </div>
                                 </th>
                             </tr>
-                            <tr>
+                            <tr class="p-heading">
                                 <th>ক্রমিক নং</th>
                                 <th>প্রতিযোগীর নাম</th>
                                 @forelse ($judges as $judge )
@@ -134,12 +143,13 @@
 
                     </table>
 
-                   <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp" style="font-size: 14px;"></small>. Powered by Marsa Technologies.
+                    <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp"
+                            style="font-size: 14px;"></small>. Powered by Marsa Technologies.
                     </div>
-                <!-- /.card-body -->
+                    <!-- /.card-body -->
+                </div>
             </div>
         </div>
-    </div>
 
 </section>
 @endSection

@@ -32,6 +32,14 @@
             text-align: center !important;
         }
 
+        .p-heading th {
+            font-size: 22px !important;
+        }
+
+        td {
+            font-size: 22px !important;
+        }
+
         .card-body {
             page-break-after: always;
         }
@@ -78,7 +86,8 @@
                                             alt="">
                                         <h1 style="font-size: 24px;font-weight:bold;">বায়তুশ শরফ আনজুমনে ইত্তেহাদ
                                             বাংলাদেশ কর্তৃক <br>
-                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩ <br>
+                                            পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩
+                                            <br><br>
                                             প্রতিযোগীদের নামের তালিকা</h1>
                                     </div> <br>
                                     <div class="row">
@@ -94,7 +103,7 @@
                                     </div>
                                 </th>
                             </tr>
-                            <tr>
+                            <tr class="p-heading">
                                 <th>ক্রমিক নং</th>
                                 <th>প্রতিযোগীর নাম</th>
                                 <th>শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th>
@@ -123,12 +132,13 @@
 
                     </table>
 
-                   <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp" style="font-size: 14px;"></small>. Powered by Marsa Technologies.
+                    <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp"
+                            style="font-size: 14px;"></small>. Powered by Marsa Technologies.
                     </div>
-                <!-- /.card-body -->
+                    <!-- /.card-body -->
+                </div>
             </div>
         </div>
-    </div>
 
 </section>
 @endSection
