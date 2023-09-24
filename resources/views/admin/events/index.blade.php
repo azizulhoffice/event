@@ -128,7 +128,7 @@
                             <p class="text-center">Showing {{ $events->firstItem() }} to {{
                                 $events->lastItem()
                                 }} of {{ $events->total() }} entries</p>
-                            {{$events->links()}}
+                            {{$events->links('pagination::bootstrap-4')}}
                         </li>
                     </ul>
                 </div>

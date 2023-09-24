@@ -21,7 +21,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::with('users')->paginate(25);
+        $events = Event::with('users')->latest()->paginate(25);
 
         return view('admin.events.index', compact('events'));
     }
