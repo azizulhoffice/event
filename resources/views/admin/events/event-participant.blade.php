@@ -12,6 +12,7 @@
         font-weight: bold;
     } */
 
+
     .header th {
         /* border-color: white !important; */
         border-style: solid !important;
@@ -88,7 +89,8 @@
                                             বাংলাদেশ কর্তৃক <br>
                                             পবিত্র মিলাদুন্নবী (সা.) উদযাপন উপলক্ষে তামাদ্দুনিক প্রতিযোগিতা ২০২৩
                                             <br><br>
-                                            প্রতিযোগীদের নামের তালিকা</h1>
+                                            প্রতিযোগীদের নামের তালিকা
+                                        </h1>
                                     </div> <br>
                                     <div class="row">
                                         <h2 class="col-6 card-title text-left"
@@ -97,17 +99,17 @@
                                             }}</h2>
                                         <h2 class="col-6 card-title text-right"
                                             style="font-size: 16px;font-weight:bold;">তারিখ:
-                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y H:i
+                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y h:i
                                             A')
                                             }}</h2>
                                     </div>
                                 </th>
                             </tr>
-                            <tr class="p-heading">
-                                <th>ক্রমিক নং</th>
-                                <th>প্রতিযোগীর নাম</th>
-                                <th>শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th>
-                                <th>শ্রেণী</th>
+                            <tr class="p-heading" style="border: 2px solid black !important;">
+                                <th style="border: 2px solid black !important;">ক্রমিক নং</th>
+                                <th style="border: 2px solid black !important;">প্রতিযোগীর নাম</th>
+                                <th style="border: 2px solid black !important;">শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th>
+                                <th style="border: 2px solid black !important;">শ্রেণী</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,13 +117,13 @@
                             $i = 0;
                             @endphp
                             @forelse ( $participants as $participant)
-                            <tr>
-                                <td>{{ $participant->serial_no}}</td>
-                                <td>{{ $participant->name_bn??$participant->name_en }}</td>
-                                <td>{{ $participant->inst_name }} <br>
+                            <tr style="border: 2px solid black !important;">
+                                <td style="border: 2px solid black !important;">{{ $participant->serial_no}}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->name_bn??$participant->name_en }}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->inst_name }} <br>
                                     {{ $participant->inst_address }}
                                 </td>
-                                <td>{{ $participant->class}}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->class}}</td>
                             </tr>
                             @empty
                             <tr>

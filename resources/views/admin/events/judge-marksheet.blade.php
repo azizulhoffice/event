@@ -92,22 +92,22 @@
                                             }}</h2>
                                         <h2 class="col-6 card-title text-right"
                                             style="font-size: 18px;font-weight:bold;">তারিখ:
-                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y H:i
+                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y h:i
                                             A')
                                             }}</h2>
                                     </div>
                                 </th>
                             </tr>
-                            <tr class="p-heading">
-                                <th>ক্রমিক নং</th>
-                                <th>প্রতিযোগীর নাম</th>
+                            <tr class="p-heading" style="border: 2px solid black !important;">
+                                <th style="border: 2px solid black !important;">ক্রমিক নং</th>
+                                <th style="border: 2px solid black !important;">প্রতিযোগীর নাম</th>
                                 @forelse ($judges as $judge )
-                                <th>{{ $judge->user->name }}</th>
+                                <th style="border: 2px solid black !important;">{{ $judge->user->name }}</th>
                                 @empty
-                                <th></th>
+                                <th style="border: 2px solid black !important;"></th>
                                 @endforelse
-                                <th>প্রাপ্ত নম্বর</th>
-                                <th>স্থান</th>
+                                <th style="border: 2px solid black !important;">প্রাপ্ত নম্বর</th>
+                                <th style="border: 2px solid black !important;">স্থান</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,21 +115,21 @@
                             $i = 0;
                             @endphp
                             @forelse ($participants as $participant)
-                            <tr>
-                                <td>{{ $participant->serial_no }}</td>
-                                <td>{{ $participant->name_bn??$participant->name_bn }}</td>
+                            <tr style="border: 2px solid black !important;">
+                                <td style="border: 2px solid black !important;">{{ $participant->serial_no }}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->name_bn??$participant->name_bn }}</td>
                                 @forelse($judges as $judge)
                                 @if ($participant->scores->where('user_id',$judge->user_id)->first())
-                                <td>{{$participant->scores->where('user_id',$judge->user_id)->first()->absent?'A':removeTrailingZeros($participant->scores->where('user_id',$judge->user_id)->first()->score)
+                                <td style="border: 2px solid black !important;">{{$participant->scores->where('user_id',$judge->user_id)->first()->absent?'A':removeTrailingZeros($participant->scores->where('user_id',$judge->user_id)->first()->score)
                                     ?? "N/A" }}</td>
                                 @else
-                                <td></td>
+                                <td style="border: 2px solid black !important;"></td>
                                 @endif
 
                                 @empty
-                                <td></td>
+                                <td style="border: 2px solid black !important;"></td>
                                 @endforelse
-                                <td>{{
+                                <td style="border: 2px solid black !important;">{{
                                     $participant->scores->first()->absent?'A':removeTrailingZeros($participant->total_earn_score)
                                     }}</td>
                                 <td>{{ $participant->scores->first()->absent?'A':$participant->rank }}</td>

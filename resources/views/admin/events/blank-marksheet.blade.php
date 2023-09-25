@@ -22,9 +22,6 @@
             bottom: 0;
         }
 
-        td {
-            font-size: 18px !important;
-        }
 
         .timestamp small {
             text-align: center !important;
@@ -91,18 +88,18 @@
                                             }}</h2>
                                         <h2 class="col-6 card-title text-right"
                                             style="font-size: 16px;font-weight:bold;">তারিখ:
-                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y H:i
+                                            {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y h:i
                                             A')
                                             }}</h2>
                                     </div>
                                 </th>
                             </tr>
-                            <tr class="p-heading">
-                                <th>ক্রমিক নং</th>
-                                <th>প্রতিযোগীর নাম</th>
+                            <tr class="p-heading" style="border: 2px solid black !important;">
+                                <th style="border: 2px solid black !important;">ক্রমিক নং</th>
+                                <th style="border: 2px solid black !important;">প্রতিযোগীর নাম</th>
                                 {{-- <th>শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th> --}}
-                                <th>প্রাপ্ত নম্বর</th>
-                                <th>মন্তব্য</th>
+                                <th style="border: 2px solid black !important;">প্রাপ্ত নম্বর</th>
+                                <th style="border: 2px solid black !important;">মন্তব্য</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,18 +107,18 @@
                             $i = 0;
                             @endphp
                             @forelse ( $participants as $participant)
-                            <tr>
-                                <td>{{ $participant->serial_no}}</td>
-                                <td>{{ $participant->name_bn??$participant->name_en }}</td>
+                            <tr style="border: 2px solid black !important;">
+                                <td style="border: 2px solid black !important;">{{ $participant->serial_no}}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->name_bn??$participant->name_en }}</td>
                                 {{-- <td>{{ $participant->inst_name }} <br>
                                     {{ $participant->inst_address }}
                                 </td> --}}
-                                <td></td>
-                                <td></td>
+                                <td style="border: 2px solid black !important;"></td>
+                                <td style="border: 2px solid black !important;"></td>
                             </tr>
                             @empty
-                            <tr>
-                                <td colspan="4" class="text-center">No Data Available</td>
+                            <tr style="border: 2px solid black !important;">
+                                <td colspan="4" class="text-center" style="border: 2px solid black !important;">No Data Available</td>
                             </tr>
                             @endforelse
 
