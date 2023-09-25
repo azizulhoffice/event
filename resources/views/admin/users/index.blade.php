@@ -29,7 +29,9 @@
                         <thead>
                             <tr>
                                 <th>Sl</th>
-                                <th>User</th>
+                                <th>Name <br>
+                                <small>User</small>
+                                </th>
                                 <th>Role</th>
                                 <th>Email</th>
                                 <th>Phone</th>
@@ -44,7 +46,9 @@
                             @forelse ( $users as $user )
                             <tr>
                                 <td>{{++$i}}</td>
-                                <td>{{$user->name ?? '-'}}</td>
+                                <td>{{$user->name ?? '-'}} <br>
+                                    <small class="text-muted">{{ $user->username??'' }}</small>
+                                </td>
                                 <td>{{$user->role??'-'}}</td>
                                 <td>{{$user->email?? '-'}}</td>
                                 <td>{{$user->phone_number ?? '-'}}</td>

@@ -38,7 +38,7 @@
                                     <div class="col-12">
                                     <div class="form-group">
                                         <label>Name:</label>
-                                        <input type="text" name="name" class="form-control filter-input" placeholder="First Name">
+                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control filter-input" placeholder="First Name">
                                         @error('name')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
@@ -47,7 +47,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>User Name:</label>
-                                        <input type="text" name="username" class="form-control filter-input" placeholder="User Name">
+                                        <input type="text" name="username" value="{{ old('username') }}" class="form-control filter-input" placeholder="User Name">
                                         @error('username')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
@@ -56,7 +56,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Email:</label>
-                                        <input type="email" name="email" class="form-control filter-input" placeholder="Email">
+                                        <input type="email" name="email" value="{{ old('email') }}" class="form-control filter-input" placeholder="Email">
                                         @error('email')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
@@ -65,7 +65,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Phone Number:</label>
-                                        <input type="text" name="phone_number" class="form-control filter-input" placeholder="Phone number">
+                                        <input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control filter-input" placeholder="Phone number">
                                         @error('phone_number')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
@@ -88,7 +88,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Password:</label>
-                                        <input type="password" name="password" class="form-control filter-input" placeholder="Password">
+                                        <input type="password" name="password" value="{{ old('password') }}" class="form-control filter-input" placeholder="Password">
                                         @error('password')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
@@ -97,7 +97,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Confirm Password:</label>
-                                        <input type="password" name="password_confirmation" class="form-control filter-input" placeholder="Confirm Password">
+                                        <input type="password" name="password_confirmation" class="form-control filter-input" value="{{ old('password_confirmation') }}" placeholder="Confirm Password">
                                         @error('password_confirmation')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
