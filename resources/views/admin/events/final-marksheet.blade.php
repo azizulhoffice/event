@@ -104,7 +104,8 @@
                             <tr class="p-heading" style="border: 2px solid black !important;">
                                 <th style="border: 2px solid black !important;">ক্রমিক নং</th>
                                 <th style="border: 2px solid black !important;">প্রতিযোগীর নাম</th>
-                                <th style="border: 2px solid black !important;">প্রাপ্ত নম্বর</th>
+                                <th style="border: 2px solid black !important;">শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th>
+                                <th style="border: 2px solid black !important;">মোট প্রাপ্ত নম্বর</th>
                                 <th style="border: 2px solid black !important;">স্থান</th>
                             </tr>
                         </thead>
@@ -116,6 +117,9 @@
                             <tr style="border: 2px solid black !important;">
                                 <td style="border: 2px solid black !important;">{{ $participant->serial_no }}</td>
                                 <td style="border: 2px solid black !important;">{{ $participant->name_bn??$participant->name_bn }}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->inst_name }} <br>
+                                    {{ $participant->inst_address }}
+                                </td>
                                 {{-- <td>{{ $participant->class }}</td> --}}
                                 {{-- <td>{{ $participant->inst_name }}</td> --}}
                                 <td style="border: 2px solid black !important;">{{
@@ -131,6 +135,13 @@
                         </tbody>
 
                     </table>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="text-left">
+                        <p>ফলাফল নিয়ন্ত্রকের স্বাক্ষর____________________</p>
+                        <p>তারিখ:________________</p>
+                    </div>
                     <div class="text-left timestamp" style="font-size: 14px;">Printed on <small id="timestamp"
                             style="font-size: 14px;"></small>. Powered by Marsa Technologies.
                     </div>
