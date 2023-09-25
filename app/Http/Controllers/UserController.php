@@ -69,4 +69,8 @@ class UserController extends Controller
         User::destroy($id);
         return redirect()->route('users.index')->with('success', 'User Deleted Successfully!');
     }
+    function allJudges(){
+        $users = User::where('role','judge')->get();
+        return view('admin.users.judges',compact('users'));
+    }
 }

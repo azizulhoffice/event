@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::resource('users', 'UserController');
         Route::any('events/{id}/result/unpublish', 'EventController@resultUnpublish')->name('events.result-unpublish');
         Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
+        Route::any('all-judges','UserController@allJudges')->name('all-judges');
     });
     Route::group(['middleware' => ['check-event-manager']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
