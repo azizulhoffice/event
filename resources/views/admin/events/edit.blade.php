@@ -62,7 +62,7 @@
                             <label for="eventParticipants">Event Judges:</label>
                             <select class="form-control select2" id="judges" name="judges[]" multiple="multiple">
                                 @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->username }}</option>
+                                <option value="{{ $user->id }}">{{ $user->username }} ({{ $user->name }})</option>
                                 @endforeach
                             </select>
                             @error('judges')
