@@ -92,7 +92,7 @@ class EventController extends Controller
         $this->validate($request, [
             'name' => 'required|string|unique:events,name,' . $id,
             'description' => 'nullable|string',
-            'judges' => 'required|array',
+            'judges' => 'array',
             'last_position' => 'required|integer',
             "event_dateTime" => "required|date_format:Y-m-d\TH:i"
         ]);
