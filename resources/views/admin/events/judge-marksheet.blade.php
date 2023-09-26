@@ -87,11 +87,14 @@
                                     </div> <br>
                                     <div class="row">
                                         <h2 class="col-6 card-title text-left"
-                                            style="font-size: 18px;font-weight:bold;">বিষয়:
+                                            style="font-size: 22px;font-weight:bold;">বিষয়:
                                             {{ $event->name
-                                            }}</h2>
+                                            }}<br>
+                                            <small class="text-muted">
+                                                {{ $event->description??''
+                                                }}</small></h2>
                                         <h2 class="col-6 card-title text-right"
-                                            style="font-size: 18px;font-weight:bold;">তারিখ:
+                                            style="font-size: 20px;font-weight:bold;">তারিখ:
                                             {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y h:i
                                             A')
                                             }}</h2>

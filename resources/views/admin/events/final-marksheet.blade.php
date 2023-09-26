@@ -90,11 +90,15 @@
                                     </div> <br>
                                     <div class="row">
                                         <h2 class="col-6 card-title text-left"
-                                            style="font-size: 16px;font-weight:bold;">বিষয়:
+                                            style="font-size: 22px;font-weight:bold;">বিষয়:
                                             {{ $event->name
-                                            }}</h2>
+                                            }} <br>
+                                            <small class="text-muted">
+                                                {{ $event->description??''
+                                                }}</small>
+                                            </h2>
                                         <h2 class="col-6 card-title text-right"
-                                            style="font-size: 16px;font-weight:bold;">তারিখ:
+                                            style="font-size: 20px;font-weight:bold;">তারিখ:
                                             {{ $event->event_dateTime==null?"":$event->event_dateTime->format('d/m/Y h:i
                                             A')
                                             }}</h2>
@@ -104,6 +108,7 @@
                             <tr class="p-heading" style="border: 2px solid black !important;">
                                 <th style="border: 2px solid black !important;">ক্রমিক নং</th>
                                 <th style="border: 2px solid black !important;">প্রতিযোগীর নাম</th>
+                                <th style="border: 2px solid black !important;">শ্রেণী</th>
                                 <th style="border: 2px solid black !important;">শিক্ষা প্রতিষ্ঠানের নাম <br>ও ঠিকানা</th>
                                 <th style="border: 2px solid black !important;">মোট প্রাপ্ত নম্বর</th>
                                 <th style="border: 2px solid black !important;">স্থান</th>
@@ -117,6 +122,7 @@
                             <tr style="border: 2px solid black !important;">
                                 <td style="border: 2px solid black !important;">{{ $participant->serial_no }}</td>
                                 <td style="border: 2px solid black !important;">{{ $participant->name_bn??$participant->name_bn }}</td>
+                                <td style="border: 2px solid black !important;">{{ $participant->class??''}}</td>
                                 <td style="border: 2px solid black !important;">{{ $participant->inst_name }} <br>
                                     {{ $participant->inst_address }}
                                 </td>
