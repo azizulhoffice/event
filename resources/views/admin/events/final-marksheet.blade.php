@@ -42,7 +42,7 @@
         @page {
             size: legal;
             /* margin-left: 4cm;
-    margin-right: 4cm; */
+            margin-right: 4cm; */
         }
     }
 </style>
@@ -77,7 +77,7 @@
                     <table id="" class="table table-bordered table-striped text-center">
                         <thead>
                             <tr class="header">
-                                <th colspan="4">
+                                <th colspan="6">
                                     <div class="d-flex justify-content-center">
                                         <img src="{{ asset('images/ittehad_logo.jpeg')}}" height="90px" width="90px"
                                             alt="">
