@@ -297,4 +297,9 @@ class EventController extends Controller
             return redirect()->back()->with("error", $e->getMessage());
         }
     }
+    function ParticipantCount(){
+        $events = Event::withCount('participants')->get();
+        $totalparticpant = Participant::count();
+        return view('admin.events.index1', compact('events', 'totalparticpant'));
+    }
 }

@@ -70,3 +70,5 @@ Route::group(['prefix' => 'judge', 'middleware' => ['auth', 'check-judge'], 'as'
     Route::post('/mark/absent', 'ScoreController@absentStore')->name('participant.absent');
 });
 Route::get('/participants/sample', 'ParticipantController@excelSample')->name('participants.sample');
+
+ Route::any('/counts', 'EventController@ParticipantCount')->name('ecounts');
