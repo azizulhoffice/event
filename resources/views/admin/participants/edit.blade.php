@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-6 form-group">
                                 <label for="name_en">Serial:</label>
-                                <input type="text" class="form-control" value="{{ $participant->serial_no }}" disabled>
+                                <input type="text" name="serial_no" class="form-control" value="{{ $participant->serial_no }}">
 
                             </div>
                             <div class="col-6 form-group">
@@ -43,14 +43,14 @@
                         <div class="row">
                             <div class="col-6 form-group">
                                 <label for="name_en">Name (English):</label>
-                                <input type="text" class="form-control" value="{{ $participant->name_en }}" id="name_en" name="name_en" placeholder="Participant Name" required>
+                                <input type="text" class="form-control" value="{{ $participant->name_en }}" id="name_en" name="name_en" placeholder="Participant Name">
                                 @error('name_en')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-6 form-group">
                                 <label for="name_bn">Name (Bangla):</label>
-                                <input type="text" class="form-control" value="{{ $participant->name_bn }}" id="name_bn" name="name_bn" placeholder="Participant Name" required>
+                                <input type="text" class="form-control" value="{{ $participant->name_bn }}" id="name_bn" name="name_bn" placeholder="Participant Name">
                                 @error('name_bn')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -59,14 +59,14 @@
                         <div class="row">
                             <div class="col-6 form-group">
                                 <label for="email">Email:</label>
-                                <input type="text" class="form-control" value="{{ $participant->email }}" id="email" name="email" placeholder="Email" required>
+                                <input type="text" class="form-control" value="{{ $participant->email }}" id="email" name="email" placeholder="Email">
                                 @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-6 form-group">
                                 <label for="phone">Phone:</label>
-                                <input type="text" class="form-control" value="{{ $participant->phone }}" id="phone" name="phone" placeholder="Participant's phone" required>
+                                <input type="text" class="form-control" value="{{ $participant->phone }}" id="phone" name="phone" placeholder="Participant's phone">
                                 @error('phone')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-6 form-group">
                                 <label for="dob">Date Of Birth:</label>
-                                <input type="text" class="form-control" value="{{ $participant->dob }}" id="dob" name="dob" placeholder="Participant's DOB" required>
+                                <input type="text" class="form-control" value="{{ $participant->dob }}" id="dob" name="dob" placeholder="Participant's DOB">
                                 @error('dob')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror

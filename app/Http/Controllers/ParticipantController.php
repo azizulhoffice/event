@@ -96,6 +96,7 @@ class ParticipantController extends Controller
             "dob" => "nullable|string",
             "inst_name" => "nullable|string",
             "inst_address" => "nullable|string",
+            'serial_no' => 'nullable',
         ]);
         $participant->update($validated);
 
