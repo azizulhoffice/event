@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::resource('users', 'UserController');
         Route::any('events/{id}/result/unpublish', 'EventController@resultUnpublish')->name('events.result-unpublish');
         Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
-        Route::any('all-judges','UserController@allJudges')->name('all-judges');
+        Route::any('all-judges', 'UserController@allJudges')->name('all-judges');
     });
     Route::group(['middleware' => ['check-event-manager']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -57,8 +57,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::any('events/{id}/participant', 'EventController@participantList')->name('events.participant');
         Route::any('events/{id}/marksheet', 'EventController@marksheet')->name('events.marksheet');
         Route::any('events/{event}/judge/marksheet', 'EventController@judgeMarksheet')->name('events.judge.marksheet');
-        Route::get('/bulk-score-update','EventController@bulkScore')->name('events.bulk-score');
-        Route::post('/bulk-score-update','EventController@bulkScoreUpdate')->name('events.bulk-score.update');
+        Route::get('/bulk-score-update', 'EventController@bulkScore')->name('events.bulk-score');
+        Route::post('/bulk-score-update', 'EventController@bulkScoreUpdate')->name('events.bulk-score.update');
     });
 });
 
@@ -69,6 +69,10 @@ Route::group(['prefix' => 'judge', 'middleware' => ['auth', 'check-judge'], 'as'
     Route::resource('scores', 'ScoreController');
     Route::post('/mark/absent', 'ScoreController@absentStore')->name('participant.absent');
 });
-Route::get('/participants/sample', 'ParticipantController@excelSample')->name('participants.sample');
 
- Route::any('/counts', 'EventController@ParticipantCount')->name('ecounts');
+Route::get('/participants/sample', 'ParticipantController@excelSample')->name('participants.sample');
+Route::any('/counts', 'EventController@ParticipantCount')->name('ecounts');
+Route::group(['namespace' => 'Front'], function () {
+        Route::resource('participant', 'ParticipantController');
+    }
+);

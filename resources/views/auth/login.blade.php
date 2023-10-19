@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
@@ -34,7 +34,9 @@
                     @csrf
 
                     <div class="input-group mb-3">
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="Email / Username">
+                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                            name="username" value="{{ old('username') }}" required autocomplete="username" autofocus
+                            placeholder="Email / Username">
                         @error('username')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -47,7 +49,9 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                        <input id="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror" name="password" required
+                            autocomplete="current-password" placeholder="Password">
 
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -72,15 +76,14 @@
 
                 <!-- /.social-auth-links -->
 
-                <!-- <p class="mb-1">
-                @if (Route::has('password.request'))
+                {{-- <p class="mb-1">
+                    @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}">I forgot my password</a>
-                @endif
-
-            </p>
-            <p class="mb-0">
-                <a href="{{route('register')}}" class="text-center">Register a new membership</a>
-            </p> -->
+                    @endif
+                </p> --}}
+                <p class="mb-0">
+                    <a href="{{route('participant.create')}}" class="text-center">Register a new Participant</a>
+                </p>
             </div>
             <!-- /.login-card-body -->
         </div>
