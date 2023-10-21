@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Front;
-
-use App\Exports\SampleParticipantExport;
-use App\Imports\ParticipantsImport;
+use App\Http\Requests\ParticipantStoreRequest;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Score;
+use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Exception;
+
 class ParticipantController extends Controller
 {
+    use ResponseTrait;
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +34,7 @@ class ParticipantController extends Controller
     public function create()
     {
         $events = Event::all();
-        return view('front.participant.create',compact('events'));
+        return view('front.participant.create', compact('events'));
     }
 
     /**
@@ -42,10 +43,13 @@ class ParticipantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParticipantStoreRequest $request)
     {
-        dd($request->all());
-        return redirect()->route('participants.index')->with('success', 'Participants Imported successfully.');
+        $serial = Participant::where('event_id', $request->event_id)->count();
+        $request->merge(['serial_no' => $serial + 1]);
+        $participant = Participant::create($request->all());
+        $msg = 'Your Registration Successfully Completed in ' . $participant->event->name ?? "" . ' Your Serial No is ' . $participant->serial_no;
+        return redirect()->back()->with('success',$msg);
     }
 
     /**
@@ -93,7 +97,7 @@ class ParticipantController extends Controller
         ]);
         $participant->update($validated);
 
-        return redirect()->route('participants.index')->with('success',"Participant information updated.");
+        return redirect()->route('participants.index')->with('success', "Participant information updated.");
     }
 
     /**
@@ -104,9 +108,9 @@ class ParticipantController extends Controller
      */
     public function destroy(Participant $participant)
     {
-        Score::where('participant_id',$participant->id)->delete();
+        Score::where('participant_id', $participant->id)->delete();
         $participant->delete();
-        return redirect()->route('participants.index')->with('success',"Participant deleted.");
+        return redirect()->route('participants.index')->with('success', "Participant deleted.");
     }
 
     public function importview()
@@ -114,7 +118,13 @@ class ParticipantController extends Controller
         $participants = Participant::all();
         return view('admin.participants.import', compact('participants'));
     }
-    public function excelSample(){
-        return Excel::download(new SampleParticipantExport(), 'participant_sample.xlsx');
+
+    public function getEvent(Request $request){
+        try {
+            $event = Event::where('group_id', $request->group_id)->get();
+            return $this->responseSuccess($event, 'Data Fetched Successfully');
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage(), 'Something Went Wrong');
+        }
     }
 }

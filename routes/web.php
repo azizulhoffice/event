@@ -74,5 +74,6 @@ Route::get('/participants/sample', 'ParticipantController@excelSample')->name('p
 Route::any('/counts', 'EventController@ParticipantCount')->name('ecounts');
 Route::group(['namespace' => 'Front'], function () {
         Route::resource('participant', 'ParticipantController');
+        Route::get('/get-event-list', 'ParticipantController@getEvent');
     }
 );
