@@ -1,18 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Front;
+
 use App\Http\Requests\ParticipantStoreRequest;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Score;
 use App\Traits\ResponseTrait;
+use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
+use App\Models\Group;
+use App\Models\Setting;
 use Exception;
 
 class ParticipantController extends Controller
 {
-    use ResponseTrait;
+    use ResponseTrait, StoreImageTrait;
     /**
      * Display a listing of the resource.
      *
@@ -33,8 +38,18 @@ class ParticipantController extends Controller
      */
     public function create()
     {
-        $events = Event::all();
-        return view('front.participant.create', compact('events'));
+        $resitraion = Setting::where('key', 'registration')->first();
+        if($resitraion->value == "open"){
+            $events = Event::where('result_published', 0)->get();
+            $groups = Group::all();
+            $classes = Classes::all();
+            return view('front.participant.create', compact('events', 'groups', 'classes'));
+
+        }
+        else{
+            return "Registration Closed Now";
+        }
+
     }
 
     /**
@@ -48,8 +63,33 @@ class ParticipantController extends Controller
         $serial = Participant::where('event_id', $request->event_id)->count();
         $request->merge(['serial_no' => $serial + 1]);
         $participant = Participant::create($request->all());
-        $msg = 'Your Registration Successfully Completed in ' . $participant->event->name ?? "" . ' Your Serial No is ' . $participant->serial_no;
-        return redirect()->back()->with('success',$msg);
+
+
+        $msg = 'Your Registration Successfully Completed in ' . $participant->event->name . ' Your Serial No is ' . ($serial + 1);
+
+        //image upload
+
+        $slug = $request->input('name_en');
+
+        if ($request->hasFile('participant_photo')) {
+            $imageName = $this->verifyAndStoreImage($request, 'participant_photo', $slug . 'photo', 'participants');
+            $participant->participantPhotos()->create(['url' => $imageName, 'type' => 'participant_photo']);
+
+        }
+        if ($request->hasFile('bcirtificate_photo')) {
+            $imageName = $this->verifyAndStoreImage($request, 'bcirtificate_photo', $slug . 'dob', 'participants/bcirtificates');
+            $participant->bcertificatePhotos()->create(['url' => 'bcirtificates/'.$imageName, 'type' => 'bcertificate_photo']);
+
+
+
+        }
+        if ($request->hasFile('auth_photo')) {
+            $imageName = $this->verifyAndStoreImage($request, 'auth_photo', $slug . 'auth_photo', 'participants/authorizations');
+            $participant->authorizationPhotos()->create(['url' => 'authorizations/'.$imageName, 'type' => 'auth_photo']);
+
+        }
+
+        return redirect()->back()->with('success', $msg);
     }
 
     /**
@@ -108,21 +148,21 @@ class ParticipantController extends Controller
      */
     public function destroy(Participant $participant)
     {
-        Score::where('participant_id', $participant->id)->delete();
-        $participant->delete();
-        return redirect()->route('participants.index')->with('success', "Participant deleted.");
     }
 
-    public function importview()
+    public function getEvent(Request $request)
     {
-        $participants = Participant::all();
-        return view('admin.participants.import', compact('participants'));
-    }
-
-    public function getEvent(Request $request){
         try {
-            $event = Event::where('group_id', $request->group_id)->get();
-            return $this->responseSuccess($event, 'Data Fetched Successfully');
+            $events = Event::where('group_id', $request->group_id)
+                ->orWhereNull('group_id')
+                ->where('result_published', 0)
+                ->get();
+            $group = Group::where('id', $request->group_id)->with('classes')->first();
+            $data = [
+                'events' => $events,
+                'classes' => $group->classes,
+            ];
+            return $this->responseSuccess($data, 'Data Fetched Successfully');
         } catch (Exception $e) {
             return $this->responseError($e->getMessage(), 'Something Went Wrong');
         }

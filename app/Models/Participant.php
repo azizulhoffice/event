@@ -30,5 +30,18 @@ class Participant extends Model
     {
         return $this->hasMany(Score::class);
     }
+    public function participantPhotos()
+    {
+        return $this->morphMany('App\Models\Image', 'imageable')->where('type', 'participant_photo');
+    }
+
+    public function bcertificatePhotos()
+    {
+        return $this->morphMany('App\Models\Image', 'imageable')->where('type', 'bcertificate_photo');
+    }
+    public function authorizationPhotos()
+    {
+        return $this->morphMany('App\Models\Image', 'imageable')->where('type', 'auth_photo');
+    }
 
 }
