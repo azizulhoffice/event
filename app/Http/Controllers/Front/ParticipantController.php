@@ -39,15 +39,17 @@ class ParticipantController extends Controller
     public function create()
     {
         $resitraion = Setting::where('key', 'registration')->first();
+        $status = null;
         if($resitraion->value == "open"){
             $events = Event::where('result_published', 0)->get();
             $groups = Group::all();
             $classes = Classes::all();
-            return view('front.participant.create', compact('events', 'groups', 'classes'));
+            return view('front.participant.create', compact('events', 'groups', 'classes', 'status'));
 
         }
         else{
-            return "Registration Closed Now";
+            $status = "Registration Closed Now . Please Contact With Admin";
+            return view('front.participant.create', compact('status'));
         }
 
     }

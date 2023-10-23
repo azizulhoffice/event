@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,5 +26,26 @@ class HomeController extends Controller
     {
         return view('admin.dashboard');
         // return view('home');
+    }
+    public function regStatusUpdate(Request $request){
+       if($request->status == "on"){
+          $data = [
+              'key' => 'registration',
+              'value' => 'open'
+          ];
+       }
+       else{
+            $data = [
+                'key' => 'registration',
+                'value' => 'closed'
+            ];
+       }
+         $res = Setting::where('key', 'registration')->update($data);
+            if($res){
+                return redirect()->back()->with('success', 'Registration Status Updated');
+            }
+            else{
+                return redirect()->back()->with('error', 'Registration Status Not Updated');
+            }
     }
 }

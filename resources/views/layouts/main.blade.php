@@ -37,6 +37,9 @@
     <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    {{-- Bootstrap Switch --}}
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     {{--
     <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">--}}
     <!-- include summernote css/js -->
@@ -47,6 +50,8 @@
             color: red;
             padding-left: 5px;
         }
+
+
     </style>
     @yield('styles')
 </head>

@@ -26,6 +26,7 @@
                     <div class="card-header d-flex justify-content-center bg-light">
                         <h3 class="card-title text-bold">Apply As A Student</h3>
                     </div>
+                    @if ($status==null)
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
@@ -77,17 +78,18 @@
                                 <select class="custom-select form-control-border" name="class" id="class">
                                     <option value="">Select Class</option>
                                     @forelse ($classes as $class )
-                                      <option value="{{ $class->name }}">{{ $class->name }}</option>
+                                    <option value="{{ $class->name }}">{{ $class->name }}</option>
                                     @empty
 
                                     @endforelse
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <select class="custom-select form-control-border" name="event_id" id="event_id" required>
+                                <select class="custom-select form-control-border" name="event_id" id="event_id"
+                                    required>
                                     <option value="">Select Event</option>
                                     @forelse ($events as $event )
-                                      <option value={{ $event->id }} >{{ $event->name }}</option>
+                                    <option value={{ $event->id }} >{{ $event->name }}</option>
                                     @empty
 
                                     @endforelse
@@ -123,7 +125,8 @@
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
                                 <br>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="bcirtificate_photo" id="bcirtificate_photo" onchange="dobPhoto(this)">
+                                    <input type="file" class="custom-file-input" name="bcirtificate_photo"
+                                        id="bcirtificate_photo" onchange="dobPhoto(this)">
                                     <label class="custom-file-label" for="bcirtificate_photo">Birth Cirtipicate
                                         Photo</label>
                                 </div>
@@ -132,7 +135,8 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="auth_photo" name="auth_photo" onchange="authPhoto(this)">
+                                    <input type="file" class="custom-file-input" id="auth_photo" name="auth_photo"
+                                        onchange="authPhoto(this)">
                                     <label class="custom-file-label" for="auth_photo">Institution Authorized
                                         Copy</label>
                                 </div>
@@ -147,6 +151,17 @@
                         <button type="submit" class="btn btn-info">Submit</button>
                         {{-- <button type="submit" class="btn btn-default float-right">Cancel</button> --}}
                     </div>
+                    @else
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+                                <div class="alert alert-danger">{{ $status }}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
             </form>
             <!-- /.card -->
