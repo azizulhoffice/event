@@ -63,6 +63,36 @@
                                     placeholder="Date of Birth*" required>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
+                                <label for="">Document Upload <span class="text-sm text-muted">Support:jpg,jpeg,png,gif
+                                        file format</span></label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="bcirtificate_photo"
+                                        id="bcirtificate_photo" onchange="dobPhoto(this)">
+                                    <label class="custom-file-label" for="bcirtificate_photo">Birth Cirtipicate
+                                        Photo</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="participant_photo"
+                                        name="participant_photo" onchange="participantPhoto(this)">
+                                    <label class="custom-file-label" for="participant_photo">Participant Photo</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="auth_photo" name="auth_photo"
+                                        onchange="authPhoto(this)">
+                                    <label class="custom-file-label" for="auth_photo">Institution Authorized
+                                        Copy</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
                                 <select class="custom-select form-control-border" name="group_id" id="group_id">
                                     <option value="">Select Group</option>
                                     @forelse ($groups as $group )
@@ -71,19 +101,17 @@
                                     @endforelse
                                 </select>
                             </div>
-
-                        </div>
-                        <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
                                 <select class="custom-select form-control-border" name="class" id="class">
                                     <option value="">Select Class</option>
                                     @forelse ($classes as $class )
                                     <option value="{{ $class->name }}">{{ $class->name }}</option>
                                     @empty
-
                                     @endforelse
                                 </select>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
                                 <select class="custom-select form-control-border" name="event_id" id="event_id"
                                     required>
@@ -112,39 +140,6 @@
                                 </select>
                             </div>
                         </div> --}}
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <label for="">Document Upload <span class="text-sm text-muted">Support:jpg,jpeg,png,gif
-                                        file format</span></label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="participant_photo"
-                                        name="participant_photo" onchange="participantPhoto(this)">
-                                    <label class="custom-file-label" for="participant_photo">Participant Photo</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <br>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="bcirtificate_photo"
-                                        id="bcirtificate_photo" onchange="dobPhoto(this)">
-                                    <label class="custom-file-label" for="bcirtificate_photo">Birth Cirtipicate
-                                        Photo</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="auth_photo" name="auth_photo"
-                                        onchange="authPhoto(this)">
-                                    <label class="custom-file-label" for="auth_photo">Institution Authorized
-                                        Copy</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                            </div>
-
-                        </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer d-flex justify-content-center">

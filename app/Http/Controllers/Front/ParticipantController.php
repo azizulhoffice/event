@@ -10,6 +10,7 @@ use App\Traits\ResponseTrait;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Classes;
 use App\Models\Group;
 use App\Models\Setting;
@@ -39,19 +40,21 @@ class ParticipantController extends Controller
     public function create()
     {
         $resitraion = Setting::where('key', 'registration')->first();
+        abort_if($resitraion == null, 404);
         $status = null;
-        if($resitraion->value == "open"){
+        if ($resitraion->value == "open") {
             $events = Event::where('result_published', 0)->get();
             $groups = Group::all();
+            $non_optional_categories = Category::where('is_optional', 'Not Optional')->get();
+            $optional_categories = Category::where('is_optional', 'Optional')
+            ->with('unpublishedEvents')
+            ->get();
             $classes = Classes::all();
-            return view('front.participant.create', compact('events', 'groups', 'classes', 'status'));
-
-        }
-        else{
+            return view('front.participant.create', compact('events', 'groups', 'classes', 'status', 'optional_categories', 'non_optional_categories'));
+        } else {
             $status = "Registration Closed Now . Please Contact With Admin";
             return view('front.participant.create', compact('status'));
         }
-
     }
 
     /**
@@ -76,19 +79,14 @@ class ParticipantController extends Controller
         if ($request->hasFile('participant_photo')) {
             $imageName = $this->verifyAndStoreImage($request, 'participant_photo', $slug . 'photo', 'participants');
             $participant->participantPhotos()->create(['url' => $imageName, 'type' => 'participant_photo']);
-
         }
         if ($request->hasFile('bcirtificate_photo')) {
             $imageName = $this->verifyAndStoreImage($request, 'bcirtificate_photo', $slug . 'dob', 'participants/bcirtificates');
-            $participant->bcertificatePhotos()->create(['url' => 'bcirtificates/'.$imageName, 'type' => 'bcertificate_photo']);
-
-
-
+            $participant->bcertificatePhotos()->create(['url' => 'bcirtificates/' . $imageName, 'type' => 'bcertificate_photo']);
         }
         if ($request->hasFile('auth_photo')) {
             $imageName = $this->verifyAndStoreImage($request, 'auth_photo', $slug . 'auth_photo', 'participants/authorizations');
-            $participant->authorizationPhotos()->create(['url' => 'authorizations/'.$imageName, 'type' => 'auth_photo']);
-
+            $participant->authorizationPhotos()->create(['url' => 'authorizations/' . $imageName, 'type' => 'auth_photo']);
         }
 
         return redirect()->back()->with('success', $msg);
@@ -154,6 +152,11 @@ class ParticipantController extends Controller
 
     public function getEvent(Request $request)
     {
+        
+        $categories1 = Category::with('unpublishedEvents')->get();
+        $event1 = Event::where('group_id', $request->group_id)
+            ->where('result_published', 0)
+            ->groupBy('category_id');
         try {
             $events = Event::where('group_id', $request->group_id)
                 ->orWhereNull('group_id')
