@@ -26,40 +26,41 @@
                     <div class="card-header d-flex justify-content-center bg-light">
                         <h3 class="card-title text-bold">Apply As A Student</h3>
                     </div>
-                    @if ($status==null)
+                    @if ($status == null)
                     <div class="card-body">
                         <div class="row">
+                            <input type="hidden" name="event" >
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" name="name_en" id="name_en" required class="form-control"
+                                <input type="text" name="name_en" id="name_en" value="{{ old('name_en') }}" required class="form-control"
                                     placeholder="Name*">
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" name="name_bn" id="name_bn" class="form-control"
+                                <input type="text" name="name_bn" id="name_bn" value="{{ old('name_bn') }}" class="form-control"
                                     placeholder="বাংলা নাম*" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" name="inst_name" id="inst_name" class="form-control"
+                                <input type="text" name="inst_name" id="inst_name" value="{{ old('inst_name') }}" class="form-control"
                                     placeholder="Institution Name*" required>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" name="inst_address" id="inst_address" class="form-control"
+                                <input type="text" name="inst_address" id="inst_address" value="{{ old('inst_address') }}" class="form-control"
                                     placeholder="Institution Address">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone*"
+                                <input type="text" name="phone" id="phone" value="{{ old('phone') }}" class="form-control" placeholder="Phone*"
                                     required>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                                <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control" placeholder="Email">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <input type="text" class="datetimepicker form-control" name="dob" id="dob"
+                                <input type="text" class="datetimepicker form-control" name="dob" id="dob" value="{{ old('dob') }}"
                                     placeholder="Date of Birth*" required>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
@@ -104,42 +105,30 @@
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
                                 <select class="custom-select form-control-border" name="class" id="class">
                                     <option value="">Select Class</option>
-                                    @forelse ($classes as $class )
-                                    <option value="{{ $class->name }}">{{ $class->name }}</option>
-                                    @empty
-                                    @endforelse
                                 </select>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group" id="non_optional_category">
+                                @foreach ($non_optional_categories as $non_optional_category ) <select
+                                    class="custom-select form-control-border form-group" name="event_non_optional[]">
+                                    <option value=""> Select {{$non_optional_category->name }}</option>
+                                </select>
+                                @endforeach
+                            </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <select class="custom-select form-control-border" name="event_id" id="event_id"
-                                    required>
-                                    <option value="">Select Event</option>
-                                    @forelse ($events as $event )
-                                    <option value={{ $event->id }} >{{ $event->name }}</option>
+                                <label for="">Optional Event</label>
+                                @foreach ($optional_categories as $optional_category ) <select
+                                    class="custom-select form-control-border form-group" name="event_optional[]">
+                                    <option value="">Select {{ $optional_category->name }}</option>
+                                    @forelse ($optional_category->unpublishedEvents as $event1 )
+                                    <option value={{ $event1->id }} >{{ $event1->name }}</option>
                                     @empty
-
                                     @endforelse
                                 </select>
+                                @endforeach
                             </div>
                         </div>
-                        {{-- <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <select class="custom-select form-control-border" name="" id="">
-                                    <option> Select Hifz Event</option>
-                                    <option value=1>Value 2</option>
-                                    <option value=2>Value 3</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-group">
-                                <select class="custom-select form-control-border" name="group" id="">
-                                    <option> Select Essay Event</option>
-                                    <option>Value 2</option>
-                                    <option>Value 3</option>
-                                </select>
-                            </div>
-                        </div> --}}
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer d-flex justify-content-center">
@@ -201,6 +190,20 @@
                         $.each(res.data.events,function(key,event){
                             $("#event_id").append('<option value="'+event.id+'">'+event.name+'</option>');
                         });
+
+                        let catgory_events ='';
+                        $.each(res.data.non_optional_categories,function(key,category){
+                            catgory_events += `<select
+                                class="custom-select form-control-border form-group" name="event_non_optional[]" id="">
+                                <option value=""> Select ${category.name}</option>`;
+                                $.each(category.unpublished_events,function(key,event){
+                                catgory_events += `<option value=${event.id}>${event.name}</option>`;
+                                });
+                                catgory_events +=`</select>`;
+                                });
+                        $('#non_optional_category').empty();
+                        $("#non_optional_category").html(catgory_events);
+
                     }else{
                         $("#class").empty();
                         $("#event_id").empty();

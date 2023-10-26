@@ -33,7 +33,7 @@ class ParticipantStoreRequest extends FormRequest
             "inst_name" => "required|string",
             "inst_address" => "nullable|string",
             'serial_no' => 'nullable|integer',
-            'event_id'=>'required|integer',
+            'event_id'=>'integer',
             'participant_photo'=> 'image|mimes:png,jpg,jpeg|max:2048',
             'bcirtificate_photo' => 'image|mimes:png,jpg,jpeg|max:2048',
             'auth_photo' => 'image|mimes:png,jpg,jpeg|max:2048',
