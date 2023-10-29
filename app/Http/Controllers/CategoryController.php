@@ -24,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.create', compact('categories'));
     }
 
     /**
@@ -35,7 +36,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string',
+            'is_optional' => 'string|required|in:Optional,Not Optional',
+        ]);
+
+        $category = Category::create([
+            'name' => $request->name,
+            'is_optional' => $request->is_optional,
+        ]);
+        return redirect()->route('categories.create')->with('success', 'Category Created Successfully!');
     }
 
     /**
@@ -57,7 +67,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+
+            $categories = Category::all();
+            return view('admin.categories.edit', compact('categories', 'category'));
     }
 
     /**
@@ -69,7 +81,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+
+                $this->validate($request, [
+                    'name' => 'required|string',
+                    'is_optional' => 'string|required|in:Optional,Not Optional',
+                ]);
+
+                $category->update([
+                    'name' => $request->name,
+                    'is_optional' => $request->is_optional,
+                ]);
+                return redirect()->route('categories.create')->with('success', 'Category Updated Successfully!');
     }
 
     /**
@@ -80,6 +102,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back()->with('success','Category Deleted Successfully!');
     }
 }

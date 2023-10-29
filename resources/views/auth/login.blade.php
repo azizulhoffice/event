@@ -82,7 +82,7 @@
                     @endif
                 </p> --}}
                 <p class="mb-0">
-                    <a href="{{route('participant.create')}}" class="text-center">Register a new Participant</a>
+                    <a href="{{route('participant.create')}}" class="text-center">Apply As A Participant</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

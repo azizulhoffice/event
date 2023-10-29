@@ -125,6 +125,52 @@
                 </a>
             </li>
             <!--Bulk Score end-->
+
+
+
+            <!--Group start-->
+            <li class="nav-item has-treeview {{ isActive(['admin/groups*']) }}">
+                <a href="#" class="nav-link {{ isActive(['admin/groups*']) }}">
+                    <i class="nav-icon far fa-calendar"></i>
+                    <p>
+                        Group
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @if ($role == "admin")
+                    <li class="nav-item">
+                        <a href="{{ url('admin/groups/create') }}" class="nav-link {{ isActive('admin/groups/create') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Group Manage</p>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </li>
+            <!--Group end-->
+
+            <!--Category start-->
+            <li class="nav-item has-treeview {{ isActive(['admin/categories*']) }}">
+                <a href="#" class="nav-link {{ isActive(['admin/categories*']) }}">
+                    <i class="nav-icon far fa-calendar"></i>
+                    <p>
+                        Category
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @if ($role == "admin")
+                    <li class="nav-item">
+                        <a href="{{ url('admin/categories/create') }}" class="nav-link {{ isActive('admin/categories/create') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Category Manage</p>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </li>
+            <!--Category end-->
             @endif
 
             @if($role == 'judge')

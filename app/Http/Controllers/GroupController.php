@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
+use App\Models\Event;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -24,7 +27,9 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        $groups = Group::all();
+        $classes = DB::table('classes')->get();
+        return view('admin.groups.create',compact('groups','classes'));
     }
 
     /**
@@ -35,7 +40,16 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string',
+            'classes' => 'array',
+        ]);
+
+        $group = Group::create([
+            'name' => $request->name,
+        ]);
+        $group->classes()->sync($request->classes);
+        return redirect()->route('groups.create')->with('success', 'Group Created Successfully!');
     }
 
     /**
@@ -57,7 +71,10 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        $classes = Classes::all();
+        $group->load('classes');
+        $groups = Group::all();
+        return view('admin.groups.edit', compact('group', 'classes', 'groups'));
     }
 
     /**
@@ -69,7 +86,17 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+
+            $this->validate($request, [
+                'name' => 'required|string',
+                'classes' => 'array',
+            ]);
+
+            $group->update([
+                'name' => $request->name,
+            ]);
+            $group->classes()->sync($request->classes);
+            return redirect()->route('groups.create')->with('success', 'Group Updated Successfully!');
     }
 
     /**
@@ -80,6 +107,7 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        return redirect()->back()->with('success', 'Group Deleted Successfully!');
     }
 }

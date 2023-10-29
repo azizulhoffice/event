@@ -48,6 +48,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::any('events/{id}/result/publish', 'EventController@resultPublish')->name('events.result-publish');
         Route::any('all-judges', 'UserController@allJudges')->name('all-judges');
         Route::put('regstatus/update', 'HomeController@regStatusUpdate')->name('regstatus.update');
+
+        Route::resource('groups', 'GroupController');
+        Route::resource('categories', 'CategoryController');
     });
     Route::group(['middleware' => ['check-event-manager']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
