@@ -36,6 +36,30 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="group_id">Event Group:</label>
+                            <select class="form-control" name="group_id" id="group_id" required >
+                                <option value="">Select Group</option>
+                                @foreach(\App\Models\Group::all() as $group)
+                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('group_id')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="category_id">Event Category:</label>
+                            <select class="form-control" name="category_id" id="category_id" required>
+                                <option value="">Select Group</option>
+                                @foreach(\App\Models\Category::all() as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="event_dateTime">Event Time & Date:</label>
                             <input type="datetime-local" value="{{ old('event_dateTime') }}" class="form-control" id="event_dateTime" name="event_dateTime" placeholder="Enter event Time and Date" required>
                             @error('event_dateTime')

@@ -21,9 +21,21 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::with('users')->latest()->paginate(25);
+        $events = Event::with('users')
+        ->latest()
+        ->where('result_published', false)
+        ->paginate(25);
 
         return view('admin.events.index', compact('events'));
+    }
+
+    public function published()
+    {
+        $events = Event::with('users')
+        ->latest()
+        ->where('result_published', true)
+        ->paginate(25);
+        return view('admin.events.published', compact('events'));
     }
 
     /**
@@ -48,6 +60,8 @@ class EventController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|unique:events,name',
+            'group_id' => 'required|integer',
+            'category_id' => 'required|integer',
             'description' => 'nullable|string',
             'judges' => 'array',
             'last_position' => 'integer',
@@ -56,6 +70,8 @@ class EventController extends Controller
 
         $event = Event::create([
             'name' => $request->name,
+            'group_id' => $request->group_id,
+            'category_id' => $request->category_id,
             'description' => $request->description,
             'last_position' => $request->last_position,
             'event_dateTime' => $request->event_dateTime,
@@ -91,6 +107,8 @@ class EventController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|unique:events,name,' . $id,
+            'group_id' => 'required|integer',
+            'category_id' => 'required|integer',
             'description' => 'nullable|string',
             'judges' => 'array',
             'last_position' => 'required|integer',
@@ -99,6 +117,8 @@ class EventController extends Controller
         $event = Event::find($id);
         $event->update([
             'name' => $request->name,
+            'group_id' => $request->group_id,
+            'category_id' => $request->category_id,
             'description' => $request->description,
             'last_position' => $request->last_position,
             'event_dateTime' => $request->event_dateTime,

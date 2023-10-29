@@ -109,9 +109,15 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}">
+                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}" title="Result UnPublished Event">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Event</p>
+                            <p>Unpublished Event</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('events.published') }}" class="nav-link {{ isActive('admin/events/published') }}" title="Result Published Event">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Published Event</p>
                         </a>
                     </li>
                 </ul>
@@ -131,7 +137,7 @@
             <!--Group start-->
             <li class="nav-item has-treeview {{ isActive(['admin/groups*']) }}">
                 <a href="#" class="nav-link {{ isActive(['admin/groups*']) }}">
-                    <i class="nav-icon far fa-calendar"></i>
+                    <i class="nav-icon fa fa-users"></i>
                     <p>
                         Group
                         <i class="right fas fa-angle-left"></i>
@@ -153,7 +159,7 @@
             <!--Category start-->
             <li class="nav-item has-treeview {{ isActive(['admin/categories*']) }}">
                 <a href="#" class="nav-link {{ isActive(['admin/categories*']) }}">
-                    <i class="nav-icon far fa-calendar"></i>
+                    <i class="nav-icon fa fa-list"></i>
                     <p>
                         Category
                         <i class="right fas fa-angle-left"></i>

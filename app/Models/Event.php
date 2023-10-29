@@ -10,7 +10,7 @@ class Event extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name','description','event_dateTime','last_position','org_name','occation'
+        'name','category_id','group_id','description','event_dateTime','last_position','org_name','occation'
     ];
 
     protected $casts = [
@@ -31,5 +31,13 @@ class Event extends Model
     }
     public function allScores() {
         return $this->hasMany(Score::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 }

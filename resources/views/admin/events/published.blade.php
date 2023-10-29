@@ -73,7 +73,7 @@
                                     @endif
                                     <br>
                                     @if ($event->category)
-                                    <span class="badge badge-primary">{{ $event->category->name }}</span>
+                                    <span class="badge badge-primary">{{$event->category->name}}</span>
                                     @endif
                                 </td>
                                 <td>
