@@ -7,19 +7,35 @@ use App\Imports\ParticipantsImport;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Score;
+use App\Traits\ResponseTrait;
+use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipantController extends Controller
 {
+
+    use ResponseTrait;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
-        $participants = Participant::latest()->paginate(20);
+
+        $this->validate($request, [
+            'event_id' => 'nullable|exists:events,id',
+            ],
+            [
+                'event_id.exists' => 'The selected event is not valid.',
+            ]
+    );
+        $participants = Participant::orderBy('serial_no', 'asc')
+            ->when(optional($request)->event_id, function ($query, $eventId) {
+                return $query->where('event_id', $eventId);
+            })
+        ->paginate(100);
 
         $startNumber = ($participants->currentPage() - 1) * $participants->perPage() + 1;
         return view('admin.participants.index', compact('participants', 'startNumber'));
@@ -73,7 +89,7 @@ class ParticipantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Participant $participant)
-    {   
+    {
         $participant->load('event');
         return view('admin.participants.edit', compact('participant'));
     }
@@ -115,7 +131,7 @@ class ParticipantController extends Controller
         $participant->delete();
         return redirect()->route('participants.index')->with('success',"Participant deleted.");
     }
-    
+
     public function importview()
     {
         $participants = Participant::all();
@@ -123,5 +139,20 @@ class ParticipantController extends Controller
     }
     public function excelSample(){
         return Excel::download(new SampleParticipantExport(), 'participant_sample.xlsx');
+    }
+
+    public function getEvent(Request $request)
+    {
+
+        try {
+            $events = Event::whereYear('event_dateTime', $request->year)
+                ->get();
+            $data = [
+                'events' => $events,
+            ];
+            return $this->responseSuccess($data, 'Data Fetched Successfully');
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage(), 'Something Went Wrong');
+        }
     }
 }

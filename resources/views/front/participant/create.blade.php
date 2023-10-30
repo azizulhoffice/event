@@ -132,8 +132,8 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer d-flex justify-content-center">
+                        <a href="{{ URL::previous() }}" class="btn btn-danger float-right">Back</a> &nbsp;
                         <button type="submit" class="btn btn-info">Submit</button>
-                        {{-- <button type="submit" class="btn btn-default float-right">Cancel</button> --}}
                     </div>
                     @else
                     <div class="card-body">
@@ -143,6 +143,9 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <a href="{{ URL::previous() }}" class="btn btn-danger float-right">Back</a> &nbsp;
                     </div>
                     @endif
 

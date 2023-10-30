@@ -99,7 +99,7 @@
                                         <a href="{{ route('events.edit',$event->id) }}"
                                             class="btn event-btn btn-primary" title="Update Event"><i
                                                 class="fa fa-edit"></i></a>&nbsp;
-                                        @if (Auth::user()->role == "admin")
+                                        {{-- @if (Auth::user()->role == "admin")
                                         <form action="{{ route('events.destroy',$event->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this event?');">
                                             @method('DELETE')
@@ -107,7 +107,7 @@
                                             <button class="btn event-btn btn-danger" title="Delete Event"><i
                                                     class="fa fa-trash"></i></button>
                                         </form> &nbsp;
-                                        @endif
+                                        @endif --}}
                                         {{-- --}}
                                         <a href="{{ route('events.marksheet',$event->id) }}" title="Blank Marksheet"
                                             class="btn event-btn btn-success"><i class="fa fa-print"></i></a>&nbsp;

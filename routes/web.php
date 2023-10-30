@@ -65,6 +65,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::get('/bulk-score-update', 'EventController@bulkScore')->name('events.bulk-score');
         Route::post('/bulk-score-update', 'EventController@bulkScoreUpdate')->name('events.bulk-score.update');
     });
+
+    Route::get('/get-events', 'ParticipantController@getEvent');
 });
 
 Route::group(['prefix' => 'judge', 'middleware' => ['auth', 'check-judge'], 'as' => 'judge.'], function () {

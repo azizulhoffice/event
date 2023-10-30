@@ -1,6 +1,7 @@
 <!-- Brand Logo -->
 <a href="index3.html" class="brand-link">
-    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="{{asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        style="opacity: .8">
     <span class="brand-text font-weight-light">Event</span>
 </a>
 
@@ -73,13 +74,19 @@
                 <ul class="nav nav-treeview">
                     @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/participants/create') }}" class="nav-link {{ isActive('admin/participants/create') }}">
+                        <a href="{{ url('admin/participants/create') }}"
+                            class="nav-link {{ isActive('admin/participants/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Import Participant</p>
                         </a>
                     </li>
                     @endif
-
+                    <li class="nav-item">
+                        <a href="{{ route('participant.create') }}" class="nav-link {{ isActive('participant/create') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Participant</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ url('admin/participants') }}" class="nav-link {{ isActive('admin/participants') }}">
                             <i class="far fa-circle nav-icon"></i>
@@ -102,20 +109,23 @@
                 <ul class="nav nav-treeview">
                     @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/events/create') }}" class="nav-link {{ isActive('admin/events/create') }}">
+                        <a href="{{ url('admin/events/create') }}"
+                            class="nav-link {{ isActive('admin/events/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Event</p>
                         </a>
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}" title="Result UnPublished Event">
+                        <a href="{{ url('admin/events') }}" class="nav-link {{ isActive('admin/events') }}"
+                            title="Result UnPublished Event">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Unpublished Event</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('events.published') }}" class="nav-link {{ isActive('admin/events/published') }}" title="Result Published Event">
+                        <a href="{{ route('events.published') }}"
+                            class="nav-link {{ isActive('admin/events/published') }}" title="Result Published Event">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Published Event</p>
                         </a>
@@ -146,7 +156,8 @@
                 <ul class="nav nav-treeview">
                     @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/groups/create') }}" class="nav-link {{ isActive('admin/groups/create') }}">
+                        <a href="{{ url('admin/groups/create') }}"
+                            class="nav-link {{ isActive('admin/groups/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Group Manage</p>
                         </a>
@@ -168,7 +179,8 @@
                 <ul class="nav nav-treeview">
                     @if ($role == "admin")
                     <li class="nav-item">
-                        <a href="{{ url('admin/categories/create') }}" class="nav-link {{ isActive('admin/categories/create') }}">
+                        <a href="{{ url('admin/categories/create') }}"
+                            class="nav-link {{ isActive('admin/categories/create') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Category Manage</p>
                         </a>
