@@ -53,7 +53,7 @@
                             <select class="form-control" name="category_id" id="category_id" required>
                                 <option value="">Select Group</option>
                                 @foreach(\App\Models\Category::all() as $category)
-                                <option value="{{ $category->id }}" {{$event->category && $event->category->id== $category->id?"selected":"" }}>{{ $category->name }}</option>
+                                <option value="{{ $category->id }}" {{$event->category && $event->category->id== $category->id?"selected":"" }}>{{ $category->name }}({{ $category->is_optional }})</option>
                                 @endforeach
                             </select>
                             @error('category_id')
