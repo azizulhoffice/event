@@ -48,7 +48,7 @@ class ParticipantController extends Controller
      */
     public function create()
     {
-        $events = Event::all();
+        $events = Event::where('result_published',false)->get();
         return view('admin.participants.import', compact('events'));
     }
 
