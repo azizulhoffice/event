@@ -36,6 +36,7 @@ Route::get('/optimize', function () {
 });
 Route::get('/migrate', function () {
     Artisan::call('migrate');
+    Artisan::call('db:seed');
     echo 'Migrated Successfully';
 });
 
